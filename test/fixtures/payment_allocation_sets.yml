@@ -1,0 +1,8 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one_and_ninety_nine:
+  customer: one
+fifty_and_fifty:
+  customer: two
+neg_fifty_and_one_hundred_fifty:
+  customer: three
