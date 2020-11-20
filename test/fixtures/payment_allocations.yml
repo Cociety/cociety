@@ -1,0 +1,26 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization: one
+  percent: 1
+  payment_allocation_set: one_and_ninety_nine
+ninety_nine:
+  organization: two
+  percent: 99
+  payment_allocation_set: one_and_ninety_nine
+fifty:
+  organization: one
+  percent: 50
+  payment_allocation_set: fifty_and_fifty
+fifty_b:
+  organization: one
+  percent: 50
+  payment_allocation_set: fifty_and_fifty
+neg_fifty:
+  organization: one
+  percent: -50
+  payment_allocation_set: neg_fifty_and_one_hundred_fifty
+one_hundred_fifty:
+  organization: one
+  percent: 150
+  payment_allocation_set: neg_fifty_and_one_hundred_fifty

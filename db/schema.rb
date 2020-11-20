@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_20_001603) do
+ActiveRecord::Schema.define(version: 2020_11_20_042132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -56,6 +56,21 @@ ActiveRecord::Schema.define(version: 2020_11_20_001603) do
     t.string "url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "payment_allocation_sets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "customer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_payment_allocation_sets_on_customer_id"
+  end
+
+  create_table "payment_allocations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "payment_allocation_set_id", null: false
+    t.uuid "organization_id", null: false
+    t.integer "percent"
+    t.index ["organization_id"], name: "index_payment_allocations_on_organization_id"
+    t.index ["payment_allocation_set_id"], name: "index_payment_to_group"
   end
 
   add_foreign_key "customer_emails", "customers"
