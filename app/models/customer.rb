@@ -20,4 +20,8 @@ class Customer < ApplicationRecord
   def full_name
    "#{self.first_name.strip()} #{self.last_name.strip()}".strip()
   end
+
+  def payment_allocations
+    payment_allocation_sets.last.payment_allocations
+  end
 end

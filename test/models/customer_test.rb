@@ -24,4 +24,12 @@ class CustomerTest < ActiveSupport::TestCase
     c = Customer.new(first_name: " has spaces ", last_name: " customersLastName ")
     assert_equal "has spaces customersLastName", c.full_name
   end
+
+  test "gets the latest payment allocations" do
+    latest_payment_set_id = customers(:one).payment_allocation_sets.last.id
+
+    customers(:one).payment_allocations.each {|p|
+      assert_equal latest_payment_set_id, p.payment_allocation_set_id
+    }
+  end
 end
