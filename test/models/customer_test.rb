@@ -32,4 +32,16 @@ class CustomerTest < ActiveSupport::TestCase
       assert_equal latest_payment_set_id, p.payment_allocation_set_id
     }
   end
+
+  test "creates an account for new customers" do
+    assert_no_changes -> { Account.count } do
+      existing_customer = customers(:one)
+      existing_customer.first_name = existing_customer.first_name + "test"
+      existing_customer.save!
+    end
+
+    assert_changes -> { Account.count } do
+      Customer.new(password: "test", first_name: "Melissa", last_name: "Galush").save!
+    end
+  end
 end

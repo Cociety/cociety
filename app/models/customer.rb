@@ -1,4 +1,6 @@
 class Customer < ApplicationRecord
+  include Accountable
+
   before_save { first_name&.strip! }
   before_save { last_name&.strip! }
   has_secure_password
