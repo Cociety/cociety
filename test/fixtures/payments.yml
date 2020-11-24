@@ -5,13 +5,8 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
-  organization_categories: health
-  name: Health Planet
-  url: https://www.healthplanet.abc
-  description: worldwide fitness
-
+  amount_cents: 500
+  account: one
 two:
-  organization_categories: education
-  name: A's for Days
-  url: https://as4days.abc
-  description: tutoring for kiddos
+  amount_cents: 1000
+  account: one
