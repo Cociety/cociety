@@ -28,9 +28,9 @@ class CustomerTest < ActiveSupport::TestCase
   test "gets the latest payment allocations" do
     latest_payment_set_id = customers(:one).payment_allocation_sets.last.id
 
-    customers(:one).payment_allocations.each {|p|
+    customers(:one).payment_allocations.each do |p|
       assert_equal latest_payment_set_id, p.payment_allocation_set_id
-    }
+    end
   end
 
   test "creates an account for new customers" do
