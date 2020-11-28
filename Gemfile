@@ -58,3 +58,9 @@ gem "bcrypt", "~> 3.1"
 gem "money-rails", "~> 1.13"
 
 gem "stripe", "~> 5.28"
+
+gem "sidekiq", "~> 6.1"
+
+gem "redis", "~> 4.2"
+
+gem "redis-namespace", "~> 1.8"
