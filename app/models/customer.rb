@@ -1,6 +1,7 @@
 class Customer < ApplicationRecord
   include Accountable
 
+  after_create :create_stripe_customer
   before_save { first_name&.strip! }
   before_save { last_name&.strip! }
   has_secure_password
@@ -14,6 +15,10 @@ class Customer < ApplicationRecord
     CustomerEmail.includes(:customer)
                  .find_by_email(email)
                  &.customer
+  end
+
+  def create_stripe_customer
+    CreateStripeCustomer.perform_async(id)
   end
 
   def default_email
