@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_24_075726) do
+ActiveRecord::Schema.define(version: 2020_11_27_120925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -42,6 +42,25 @@ ActiveRecord::Schema.define(version: 2020_11_24_075726) do
     t.string "last_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "external_entities", primary_key: ["external_entity_source_id", "external_id"], force: :cascade do |t|
+    t.string "external_id", null: false
+    t.uuid "external_entity_source_id", null: false
+    t.string "internal_entity_type"
+    t.uuid "internal_entity_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["external_entity_source_id", "internal_entity_type", "internal_entity_id"], name: "index-entity_id-internal-type_internal-id"
+    t.index ["external_entity_source_id"], name: "index_external_entities_on_external_entity_source_id"
+    t.index ["internal_entity_type", "internal_entity_id"], name: "index_type_id"
+  end
+
+  create_table "external_entity_sources", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.string "url"
+    t.index ["name"], name: "index_external_entity_sources_on_name", unique: true
   end
 
   create_table "organization_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
