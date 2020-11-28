@@ -64,3 +64,5 @@ gem "sidekiq", "~> 6.1"
 gem "redis", "~> 4.2"
 
 gem "redis-namespace", "~> 1.8"
+
+gem "composite_primary_keys", "~> 12.0"
