@@ -5,6 +5,7 @@ class Customer < ApplicationRecord
   before_save { last_name&.strip! }
   has_secure_password
   has_many :emails, class_name: "CustomerEmail", autosave: true
+  has_many :external_entities, as: :internal_entity
   has_many :payment_allocation_sets, autosave: true
   validates :first_name, presence: true, allow_blank: false
   validates :last_name, presence: true, allow_blank: false
