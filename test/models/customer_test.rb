@@ -14,7 +14,8 @@ class CustomerTest < ActiveSupport::TestCase
   end
 
   test "strips whitespace from customer's name before saving" do
-    c = Customer.new(first_name: " has spaces ", last_name: " customersLastName ", password: "secret")
+    email = CustomerEmail.new(email:"customersLastName@opensourcesociety.com")
+    c = Customer.new(first_name: " has spaces ", last_name: " customersLastName ", password: "secret", emails: [email])
     c.save!
     assert_equal "has spaces", c.first_name
     assert_equal "customersLastName", c.last_name
@@ -41,7 +42,17 @@ class CustomerTest < ActiveSupport::TestCase
     end
 
     assert_changes -> { Account.count } do
+      email = CustomerEmail.new(email:"mgalush@opensourcesociety.com")
+      Customer.new(password: "test", first_name: "Melissa", last_name: "Galush", emails: [email]).save!
+    end
+  end
+
+  test "refuses to create a customer without an email" do
+    assert_raise ActiveRecord::RecordInvalid do
       Customer.new(password: "test", first_name: "Melissa", last_name: "Galush").save!
     end
+
+    email = CustomerEmail.new(email:"mgalush@opensourcesociety.com")
+    assert Customer.new(password: "test", first_name: "Melissa", last_name: "Galush", emails: [email]).save!
   end
 end
