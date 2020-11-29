@@ -10,3 +10,6 @@ one:
 two:
   amount_cents: 1000
   account: one
+three:
+  amount_cents: 2000
+  account: two
