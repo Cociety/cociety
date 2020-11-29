@@ -17,4 +17,13 @@ class PaymentTest < ActiveSupport::TestCase
     actual = Payment.calculate_organization_payouts(Float::INFINITY..Float::INFINITY)
     assert_equal expected.inspect, actual.inspect
   end
+
+  test "queues a stripe charge to be created on create" do
+    assert_changes -> { CreateStripeCharge.jobs.size } do
+      Payment.new(
+        amount: 10,
+        account: accounts(:one)
+      ).save!
+    end
+  end
 end
