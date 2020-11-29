@@ -10,6 +10,7 @@ class Customer < ApplicationRecord
   has_many :payment_allocation_sets, autosave: true
   validates :first_name, presence: true, allow_blank: false
   validates :last_name, presence: true, allow_blank: false
+  validates :emails, length: { minimum: 1 }
 
   def self.find_by_email(email)
     CustomerEmail.includes(:customer)
