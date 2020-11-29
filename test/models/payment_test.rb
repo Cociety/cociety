@@ -8,4 +8,13 @@ class PaymentTest < ActiveSupport::TestCase
       p.save!
     end
   end
+
+  test "calculates organization payouts" do
+    expected = [
+      Payment.new(amount: 10.15, account: accounts(:three)),
+      Payment.new(amount: 24.85, account: accounts(:four))
+    ]
+    actual = Payment.calculate_organization_payouts(Float::INFINITY..Float::INFINITY)
+    assert_equal expected.inspect, actual.inspect
+  end
 end

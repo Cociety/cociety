@@ -13,7 +13,7 @@ fifty:
   percent: 50
   payment_allocation_set: fifty_and_fifty
 fifty_b:
-  organization: one
+  organization: two
   percent: 50
   payment_allocation_set: fifty_and_fifty
 neg_fifty:
@@ -21,6 +21,6 @@ neg_fifty:
   percent: -50
   payment_allocation_set: neg_fifty_and_one_hundred_fifty
 one_hundred_fifty:
-  organization: one
+  organization: two
   percent: 150
   payment_allocation_set: neg_fifty_and_one_hundred_fifty
