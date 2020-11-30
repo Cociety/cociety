@@ -10,8 +10,8 @@ class CreateCustomers < ActiveRecord::Migration[6.0]
     create_table :customer_emails, id: :uuid do |t|
       t.string :email
       t.references :customer, null: false, foreign_key: true, type: :uuid
-      t.boolean :is_verified, null: false, :default => false
-      t.boolean :is_default, null: false, :default => false
+      t.boolean :is_verified, null: false, default: false
+      t.boolean :is_default, null: false, default: false
       
       t.timestamps
     end
