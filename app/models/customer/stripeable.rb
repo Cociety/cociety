@@ -21,6 +21,14 @@ module Customer::Stripeable
     CreateStripeCharge.perform_async(stripe_id, amount.fractional, amount.currency)
   end
 
+  def add_payment_card(card_args)
+    StripeHelper::PaymentMethod.create_card(stripe_id, card_args)
+  end
+
+  def payment_cards
+    StripeHelper::PaymentMethod.get_cards(stripe_id)
+  end
+
   def create_stripe_customer
     CreateStripeCustomer.perform_async(id)
   end
