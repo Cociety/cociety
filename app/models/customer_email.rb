@@ -1,5 +1,5 @@
 class CustomerEmail < ApplicationRecord
-  default_scope -> { order(:created_at => :asc) }
+  default_scope -> { order(created_at: :asc) }
   belongs_to :customer
   before_save { email&.strip! }
   before_save :set_is_default
