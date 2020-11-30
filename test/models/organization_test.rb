@@ -37,4 +37,8 @@ class OrganizationTest < ActiveSupport::TestCase
     end
     assert Organization.new(name: "Org #1", description: "yep", url: "https://example.com", organization_categories: [organization_categories(:health)]).save!
   end
+
+  test "pays an organization" do
+    assert_equal "Paying Health Planet 100 cents in USD", organizations(:one).pay(100, "USD")
+  end
 end
