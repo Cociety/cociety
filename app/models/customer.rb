@@ -3,6 +3,7 @@ class Customer < ApplicationRecord
 
   before_save { first_name&.strip! }
   before_save { last_name&.strip! }
+  default_scope { order(created_at: :asc) }
   has_secure_password
   has_many :emails, class_name: "CustomerEmail", autosave: true
   has_many :external_entities, as: :internal_entity
