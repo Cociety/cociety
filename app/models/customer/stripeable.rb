@@ -17,8 +17,8 @@ module Customer::Stripeable
     external_entities.by_name("Stripe").first&.external_id
   end
 
-  def create_charge(amount)
-    CreateStripeCharge.perform_async(stripe_id, amount.fractional, amount.currency)
+  def create_charge(cents, currency)
+    CreateStripeCharge.perform_async(stripe_id, cents, currency)
   end
 
   def add_payment_card(card_args)

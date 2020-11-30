@@ -10,19 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_27_120925) do
+ActiveRecord::Schema.define(version: 2020_11_30_025433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
-
-  create_table "accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "owner_type"
-    t.uuid "owner_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["owner_type", "owner_id"], name: "index_accounts_on_owner_type_and_owner_id", unique: true
-  end
 
   create_table "customer_emails", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
@@ -98,15 +90,6 @@ ActiveRecord::Schema.define(version: 2020_11_27_120925) do
     t.integer "percent"
     t.index ["organization_id"], name: "index_payment_allocations_on_organization_id"
     t.index ["payment_allocation_set_id"], name: "index_payment_to_group"
-  end
-
-  create_table "payments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.integer "amount_cents", default: 0, null: false
-    t.string "amount_currency", default: "USD", null: false
-    t.uuid "account_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["account_id"], name: "index_payments_on_account_id"
   end
 
   add_foreign_key "customer_emails", "customers"

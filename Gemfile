@@ -55,8 +55,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "bcrypt", "~> 3.1"
 
-gem "money-rails", "~> 1.13"
-
 gem "stripe", "~> 5.28"
 
 gem "sidekiq", "~> 6.1"
