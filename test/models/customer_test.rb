@@ -55,4 +55,14 @@ class CustomerTest < ActiveSupport::TestCase
     email = CustomerEmail.new(email:"mgalush@opensourcesociety.com")
     assert Customer.new(password: "test", first_name: "Melissa", last_name: "Galush", emails: [email]).save!
   end
+
+  test "finds a customer by stripe id" do
+    assert Customer.find_by_stripe_id(123)
+  end
+
+  test "charges a customer's payment method" do
+    assert_changes -> { CreateStripeCharge.jobs.size } do
+      customers(:one).create_charge(Money.new(100, "USD"))
+    end
+  end
 end

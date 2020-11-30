@@ -1,7 +1,6 @@
 class Customer < ApplicationRecord
-  include Accountable
+  include Accountable, Stripeable
 
-  after_create :create_stripe_customer
   before_save { first_name&.strip! }
   before_save { last_name&.strip! }
   has_secure_password
@@ -18,16 +17,12 @@ class Customer < ApplicationRecord
                  &.customer
   end
 
-  def create_stripe_customer
-    CreateStripeCustomer.perform_async(id)
-  end
-
   def default_email
     self.emails.find_by_is_default(true)
   end
 
   def full_name
-   "#{self.first_name.strip()} #{self.last_name.strip()}".strip()
+   "#{self.first_name.strip} #{self.last_name.strip}".strip
   end
 
   def payment_allocations

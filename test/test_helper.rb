@@ -3,8 +3,10 @@ require_relative '../config/environment'
 require 'rails/test_help'
 require 'sidekiq/testing'
 require 'support/sidekiq_helper'
+require 'support/stripe_support'
 
 class ActiveSupport::TestCase
+  include StripeSupport
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
 

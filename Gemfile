@@ -66,3 +66,5 @@ gem "redis", "~> 4.2"
 gem "redis-namespace", "~> 1.8"
 
 gem "composite_primary_keys", "~> 12.0"
+
+gem "stripe-ruby-mock", "~> 3.0"

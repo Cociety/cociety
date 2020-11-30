@@ -7,9 +7,9 @@
 one:
   external_id: 123
   external_entity_source: Stripe
-  internal_entity: (Customer) one
+  internal_entity:  one (Customer)
 
 two:
   external_id: 123
   external_entity_source: Apple
-  internal_entity: (Customer) one
+  internal_entity:  one (Customer)

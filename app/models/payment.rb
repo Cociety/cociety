@@ -1,14 +1,9 @@
 class Payment < ApplicationRecord
-  after_create :create_stripe_charge
   belongs_to :account
   has_one :external_entity, as: :internal_entity
   monetize :amount_cents
   scope :from_customers, -> (range) { where(created_at: range).joins(:account).merge(Account.customer) }
   scope :from_organizations, -> (range) { where(created_at: range).joins(:account).merge(Account.organization) }
-
-  def create_stripe_charge
-    CreateStripeCharge.perform_async(id)
-  end
 
   # Gets all customer's payments from a specific time window (range) and calculates how much to pay out to each organization
   def self.calculate_organization_payouts(range)
