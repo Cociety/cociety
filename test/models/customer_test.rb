@@ -34,19 +34,6 @@ class CustomerTest < ActiveSupport::TestCase
     end
   end
 
-  test "creates an account for new customers" do
-    assert_no_changes -> { Account.count } do
-      existing_customer = customers(:one)
-      existing_customer.first_name = existing_customer.first_name + "test"
-      existing_customer.save!
-    end
-
-    assert_changes -> { Account.count } do
-      email = CustomerEmail.new(email:"mgalush@opensourcesociety.com")
-      Customer.new(password: "test", first_name: "Melissa", last_name: "Galush", emails: [email]).save!
-    end
-  end
-
   test "refuses to create a customer without an email" do
     assert_raise ActiveRecord::RecordInvalid do
       Customer.new(password: "test", first_name: "Melissa", last_name: "Galush").save!
@@ -62,7 +49,7 @@ class CustomerTest < ActiveSupport::TestCase
 
   test "charges a customer's payment method" do
     assert_changes -> { CreateStripeCharge.jobs.size } do
-      customers(:one).create_charge(Money.new(100, "USD"))
+      customers(:one).create_charge(100, "USD")
     end
   end
 end

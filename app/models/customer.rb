@@ -1,5 +1,5 @@
 class Customer < ApplicationRecord
-  include Accountable, Stripeable
+  include Stripeable
 
   before_save { first_name&.strip! }
   before_save { last_name&.strip! }
