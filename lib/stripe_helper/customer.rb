@@ -15,7 +15,6 @@ module StripeHelper
     end
   
     def self.link_to_customer(stripe_customer, customer)
-      return unless stripe_customer && customer
       customer.external_entities.new(
         external_id: stripe_customer.id,
         source: ExternalEntitySource.find_by_name("Stripe")
