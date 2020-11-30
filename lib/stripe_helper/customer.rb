@@ -9,6 +9,14 @@ module StripeHelper
         }
       })
     end
+
+    def self.find(stripe_id)
+      Stripe::Customer.retrieve(stripe_id)
+    end
+
+    def self.default_payment_id(stripe_id)
+      self.find(stripe_id)["default_source"]
+    end
   
     def self.find_by_email(email)
       Stripe::Customer.list(email: email || "", limit: 1)["data"].first

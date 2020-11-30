@@ -1,5 +1,6 @@
 class PaymentAllocationSet < ApplicationRecord
   belongs_to :customer
+  default_scope -> { order(:created_at => :desc) }
   has_many :payment_allocations, autosave: true
   validate :payment_percent_sum_to_100
   validates_associated :payment_allocations
