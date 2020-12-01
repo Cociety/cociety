@@ -6,7 +6,7 @@ module StripeHelper
         currency: currency,
         customer: stripe_id,
         confirm: true,
-        payment_method: payment_method_id
+        payment_method: payment_method_id,
       })
     end
   end
