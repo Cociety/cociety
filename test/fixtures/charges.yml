@@ -1,0 +1,50 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+<% now = Time.now.to_i %>
+last:
+  amount_cents: 100
+  amount_currency: USD
+  refunded: false
+  status: 0
+  stripe_created: <%= now %>
+  stripe_id: ch_123
+  external_event_id: evt_1001
+  external_entity_source: Stripe
+
+<% for n in 1..1000 %>
+charge_<%= n %>:
+  amount_cents: 100
+  amount_currency: USD
+  refunded: false
+  status: 1
+  stripe_created: <%= now - n %>
+  stripe_id: ch_123
+  external_event_id: evt_<%= n %>
+  external_entity_source: Stripe
+<% end %>
+
+first:
+  amount_cents: 100
+  amount_currency: USD
+  refunded: false
+  status: 1
+  stripe_created: <%= now - 1001 %>
+  stripe_id: ch_123
+  external_event_id: evt_0
+  external_entity_source: Stripe
+
+<% for n in 2000..2999 %>
+charge_<%= n %>:
+  amount_cents: 100
+  amount_currency: USD
+  refunded: false
+  status: 1
+  stripe_created: <%= now - n %>
+  stripe_id: ch_<%= n %>
+  external_event_id: evt_<%= n %>
+  external_entity_source: Stripe
+<% end %>
