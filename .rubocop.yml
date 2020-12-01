@@ -1,0 +1,6 @@
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
