@@ -13,7 +13,7 @@ class CustomerEmail < ApplicationRecord
   private
 
   def check_if_default
-    if self.is_default
+    if is_default
       errors[:base] << "can't delete default email"
       throw :abort
     end

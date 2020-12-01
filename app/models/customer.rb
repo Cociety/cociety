@@ -5,7 +5,7 @@ class Customer < ApplicationRecord
   before_save { last_name&.strip! }
   default_scope { order(created_at: :asc) }
   has_secure_password
-  has_many :emails, class_name: "CustomerEmail", autosave: true
+  has_many :emails, class_name: 'CustomerEmail', autosave: true
   has_many :external_entities, as: :internal_entity
   has_many :payment_allocation_sets, autosave: true
   validates :first_name, presence: true, allow_blank: false
@@ -19,11 +19,11 @@ class Customer < ApplicationRecord
   end
 
   def default_email
-    self.emails.find_by_is_default(true)
+    emails.find_by_is_default(true)
   end
 
   def full_name
-   "#{self.first_name.strip} #{self.last_name.strip}".strip
+    "#{first_name.strip} #{last_name.strip}".strip
   end
 
   def payment_allocations

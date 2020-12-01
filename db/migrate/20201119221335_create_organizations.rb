@@ -7,7 +7,7 @@ class CreateOrganizations < ActiveRecord::Migration[6.0]
       t.index :category, unique: true
     end
 
-    ["Education", "Environment", "Health", "Human Rights", "Homelessness", "Medical Research"].each do |i|
+    ['Education', 'Environment', 'Health', 'Human Rights', 'Homelessness', 'Medical Research'].each do |i|
       OrganizationCategory.new(category: i).save
     end
 
@@ -18,9 +18,9 @@ class CreateOrganizations < ActiveRecord::Migration[6.0]
       t.timestamps
     end
 
-    create_join_table :organizations, :organization_categories, column_options: {type: :uuid} do |t|
-      t.index [:organization_id, :organization_category_id], unique: true, name: "organization_to_categories"
-      t.index [:organization_category_id, :organization_id], unique: true, name: "category_to_organizations"
+    create_join_table :organizations, :organization_categories, column_options: { type: :uuid } do |t|
+      t.index %i[organization_id organization_category_id], unique: true, name: 'organization_to_categories'
+      t.index %i[organization_category_id organization_id], unique: true, name: 'category_to_organizations'
     end
   end
 end

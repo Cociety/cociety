@@ -1,3 +1,8 @@
+AllCops:
+  Exclude:
+    - 'bin/**'
+    - 'db/schema.rb'
+    - 'Gemfile'
 Layout/HashAlignment:
   EnforcedColonStyle: table
 Style/FrozenStringLiteralComment:
