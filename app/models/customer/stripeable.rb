@@ -3,18 +3,16 @@ module Customer::Stripeable
   included do
     after_create :create_stripe_customer
     def self.find_by_stripe_id(stripe_id)
-      begin
-        ExternalEntity.includes(:internal_entity)
-                      .find([ExternalEntitySource.find_by_name("Stripe").id, stripe_id])
-                      .internal_entity
-      rescue ActiveRecord::RecordNotFound => e
-        Rails.logger.error("Failed to find customer for stripe id #{stripe_id}")
-      end
+      ExternalEntity.includes(:internal_entity)
+                    .find([ExternalEntitySource.Stripe.id, stripe_id])
+                    .internal_entity
+    rescue ActiveRecord::RecordNo´tFound => e
+      Rails.logger.error(e, "Failed to find customer for stripe id #{stripe_id}")
     end
   end
 
   def stripe_id
-    external_entities.by_name("Stripe").first&.external_id
+    external_entities.by_name('Stripe').first&.external_id
   end
 
   def create_charge(cents, currency)
