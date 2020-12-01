@@ -1,6 +1,6 @@
 class PaymentAllocationSet < ApplicationRecord
   belongs_to :customer
-  default_scope -> { order(:created_at => :desc) }
+  default_scope -> { order(created_at: :desc) }
   has_many :payment_allocations, autosave: true
   validate :payment_percent_sum_to_100
   validates_associated :payment_allocations
@@ -12,6 +12,6 @@ class PaymentAllocationSet < ApplicationRecord
   private
 
   def payment_percent_sum_to_100
-    errors[:base] << "payment percentages must add to 100" unless payment_percent_sum == 100
+    errors[:base] << 'payment percentages must add to 100' unless payment_percent_sum == 100
   end
 end

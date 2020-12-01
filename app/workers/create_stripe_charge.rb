@@ -8,7 +8,7 @@ class CreateStripeCharge
       StripeHelper::Charge.customer(stripe_id, payment_method_id, cents, currency)
     rescue Stripe::CardError, Stripe::InvalidRequestError => e
       logger.error(e.message)
-      # TODO notify customer that their charge failed
+      # TODO: notify customer that their charge failed
     end
   end
 end

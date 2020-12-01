@@ -19,8 +19,8 @@ module OpenSourceSociety
     # the framework and any gems in your application.
     config.active_job.queue_adapter = :sidekiq
 
-    ENV['REDIS_HOST'] ||= "localhost"
-    ENV['REDIS_PORT'] ||= "6379"
+    ENV['REDIS_HOST'] ||= 'localhost'
+    ENV['REDIS_PORT'] ||= '6379'
     ENV['SIDEKIQ_REDIS_URL'] ||= "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}/0"
     ENV['ANYCABLE_REDIS_URL'] ||= "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}/1"
   end

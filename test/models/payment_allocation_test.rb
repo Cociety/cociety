@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PaymentAllocationTest < ActiveSupport::TestCase
-  test "only saves percents > 0 and <= 100" do
+  test 'only saves percents > 0 and <= 100' do
     p = payment_allocations(:one)
     p.percent = 0
     assert_raise ActiveRecord::RecordInvalid do

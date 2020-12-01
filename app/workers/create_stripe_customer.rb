@@ -9,8 +9,8 @@ class CreateStripeCustomer
     if existing_stripe_customer
       begin
         StripeHelper::Customer.link_to_customer(existing_stripe_customer, customer)
-      rescue ActiveRecord::RecordNotUnique => exception
-        logger.info "Customer already has known Stripe id"
+      rescue ActiveRecord::RecordNotUnique => e
+        logger.info 'Customer already has known Stripe id'
       end
     else
       new_stripe_customer = StripeHelper::Customer.create(customer)
