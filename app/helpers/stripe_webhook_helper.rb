@@ -1,7 +1,7 @@
 # Helper for StripeWebhookController
 module StripeWebhookHelper
   def self.endpoint_secret
-    Rails.application.credentials.stripe[ENV['RAILS_ENV'].to_sym][:signing_secret]
+    Rails.application.credentials.stripe[:signing_secret]
   end
 
   def self.handle_event(event)
