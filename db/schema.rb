@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_30_070827) do
+ActiveRecord::Schema.define(version: 2020_12_02_070955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 2020_11_30_070827) do
     t.uuid "external_entity_source_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "customer_id", null: false
+    t.index ["customer_id"], name: "index_charges_on_customer_id"
     t.index ["external_entity_source_id"], name: "index_charges_on_external_entity_source_id"
     t.index ["external_event_id"], name: "index_charges_on_external_event_id"
     t.index ["stripe_created"], name: "index_charges_on_stripe_created"
@@ -119,5 +121,6 @@ ActiveRecord::Schema.define(version: 2020_11_30_070827) do
     t.index ["payment_allocation_set_id"], name: "index_payment_to_group"
   end
 
+  add_foreign_key "charges", "customers"
   add_foreign_key "customer_emails", "customers"
 end

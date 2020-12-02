@@ -5,7 +5,7 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
-  external_id: 123
+  external_id: cus_ITuIPfjmJZ1liz
   external_entity_source: Stripe
   internal_entity:  one (Customer)
 

@@ -8,6 +8,7 @@
 last:
   amount_cents: 100
   amount_currency: USD
+  customer: one
   refunded: false
   status: 1
   stripe_created: <%= now %>
@@ -19,6 +20,7 @@ last:
 charge_<%= n %>:
   amount_cents: 100
   amount_currency: USD
+  customer: one
   refunded: false
   status: 1
   stripe_created: <%= now - n %>
@@ -30,6 +32,7 @@ charge_<%= n %>:
 first:
   amount_cents: 100
   amount_currency: USD
+  customer: one
   refunded: false
   status: 1
   stripe_created: <%= now - 1001 %>
@@ -43,6 +46,7 @@ first:
 charge_<%= n %>:
   amount_cents: 100
   amount_currency: USD
+  customer: one
   refunded: <%= n%2 %>
   status: <%= n%3 %>
   stripe_created: <%= now - n %>

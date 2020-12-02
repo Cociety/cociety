@@ -44,7 +44,7 @@ class CustomerTest < ActiveSupport::TestCase
   end
 
   test 'finds a customer by stripe id' do
-    assert Customer.find_by_stripe_id(123)
+    assert Customer.find_by_stripe_id external_entities(:one).external_id
   end
 
   test "charges a customer's payment method" do

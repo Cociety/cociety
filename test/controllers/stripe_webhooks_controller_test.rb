@@ -22,6 +22,14 @@ class StripeWebhooksControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'associates events with customer' do
+    body = generate_body('stripe-webhook-examples/charge.refunded.json')
+    post stripe_webhooks_url, body
+    event = Stripe::Event.construct_from(body[:params])
+    charge = Charge.find([ExternalEntitySource.Stripe.id, event.id, event.data.object.id])
+    assert_equal customers(:one).id, charge.customer.id
+  end
+
   private
 
   def generate_body(payload_path)

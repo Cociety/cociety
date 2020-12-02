@@ -5,6 +5,7 @@ class Charge < ApplicationRecord
   alias_attribute :source, :external_entity_source
   alias_attribute :event, :external_event
   belongs_to :external_entity_source
+  belongs_to :customer
   enum status: { pending: 0, succeeded: 1, failed: 2 }
   has_one :external_event, foreign_key: %i[external_entity_source_id external_event_id]
   monetize :amount_cents
@@ -20,6 +21,7 @@ class Charge < ApplicationRecord
         SELECT DISTINCT ON(stripe_id)
           amount_cents,
           amount_currency,
+          customer_id,
           refunded,
           "status",
           stripe_created,
