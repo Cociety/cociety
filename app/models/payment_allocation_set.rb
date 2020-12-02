@@ -6,7 +6,7 @@ class PaymentAllocationSet < ApplicationRecord
   validates_associated :payment_allocations
 
   def payment_percent_sum
-    payment_allocations.map { |a| a.percent }.reduce(:+)
+    payment_allocations.map(&:percent).reduce(:+)
   end
 
   private

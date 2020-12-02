@@ -1,11 +1,15 @@
 AllCops:
   Exclude:
-    - 'bin/**'
+    - 'bin/**/*'
     - 'db/schema.rb'
     - 'Gemfile'
+    - 'node_modules/**/*'
+  NewCops: enable
 Layout/HashAlignment:
   EnforcedColonStyle: table
-Style/FrozenStringLiteralComment:
-  EnforcedStyle: never
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
