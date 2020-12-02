@@ -9,7 +9,7 @@ last:
   amount_cents: 100
   amount_currency: USD
   refunded: false
-  status: 0
+  status: 1
   stripe_created: <%= now %>
   stripe_id: ch_123
   external_event_id: evt_1001
@@ -37,12 +37,14 @@ first:
   external_event_id: evt_0
   external_entity_source: Stripe
 
+# odd numbered ones are marked refunded
+# status cycles between 0, 1, 2
 <% for n in 2000..2999 %>
 charge_<%= n %>:
   amount_cents: 100
   amount_currency: USD
-  refunded: false
-  status: 1
+  refunded: <%= n%2 %>
+  status: <%= n%3 %>
   stripe_created: <%= now - n %>
   stripe_id: ch_<%= n %>
   external_event_id: evt_<%= n %>

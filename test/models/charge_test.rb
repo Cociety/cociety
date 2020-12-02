@@ -14,15 +14,31 @@ class ChargeTest < ActiveSupport::TestCase
   end
 
   test 'gets latest events for all charges' do
-    latest_charges = Charge.latest
-    assert_equal 1001, latest_charges.size
+    latest_charges = Charge.latest_succeeded_non_refunded
+    assert_equal 168, latest_charges.size
     assert_equal charges(:last).id, latest_charges.first.id
   end
 
   test 'gets latest events in range' do
     to = charges(:charge_2500).stripe_created
     from = to - 500
-    latest_charges = Charge.latest(from..to)
-    assert_equal 500, latest_charges.size
+    latest_charges = Charge.latest_succeeded_non_refunded(from..to)
+    assert_equal 84, latest_charges.size
+  end
+
+  test 'filters out charges that were refunded' do
+    to = charges(:charge_2500).stripe_created
+    from = to - 500
+    Charge.latest_succeeded_non_refunded(from..to).each do |c|
+      assert_not c.refunded
+    end
+  end
+
+  test 'filters out charges that haven\'t succeeded' do
+    to = charges(:charge_2500).stripe_created
+    from = to - 500
+    Charge.latest_succeeded_non_refunded(from..to).each do |c|
+      assert c.succeeded?
+    end
   end
 end

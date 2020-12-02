@@ -11,32 +11,42 @@ class Charge < ApplicationRecord
   scope :testt, -> { find_by_sql('SELECT * FROM charges') }
   self.primary_keys = :external_entity_source_id, :external_event_id, :stripe_id
 
-  def self.latest(range = 0..2_147_483_647)
+  # rubocop:disable Metrics/MethodLength
+  def self.latest_succeeded_non_refunded(range = 0..2_147_483_647)
     query = <<-SQL
-      SELECT DISTINCT ON(stripe_id)
-        amount_cents,
-        amount_currency,
-        refunded,
-        'status',
-        stripe_created,
-        stripe_id,
-        external_event_id,
-        external_entity_source_id,
-        created_at,
-        updated_at
-      FROM
-        charges
+      SELECT
+        *
+      FROM (
+        SELECT DISTINCT ON(stripe_id)
+          amount_cents,
+          amount_currency,
+          refunded,
+          "status",
+          stripe_created,
+          stripe_id,
+          external_event_id,
+          external_entity_source_id,
+          created_at,
+          updated_at
+        FROM
+          charges
+        WHERE
+          stripe_created BETWEEN $1 and $2
+        ORDER BY
+          stripe_id,
+          stripe_created DESC
+      ) AS latest_events_per_charge
       WHERE
-        stripe_created BETWEEN $1 and $2
-      ORDER BY
-        stripe_id,
-        stripe_created DESC
+        refunded = false
+        and "status" = $3
     SQL
     find_by_sql(query, [
                   [nil, range.begin],
-                  [nil, range.end]
+                  [nil, range.end],
+                  [nil, Charge.statuses[:succeeded]]
                 ])
   end
+  # rubocop:enable Metrics/MethodLength
 
   def latest_for_self
     Charge.where(stripe_id: stripe_id).order(stripe_created: :desc).limit(1).first
