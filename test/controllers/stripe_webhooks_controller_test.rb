@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class StripeWebhooksControllerTest < ActionDispatch::IntegrationTest
+  include StripeWebhooksHelper
+
   test 'saves charge succeeded events' do
     assert_difference -> { ExternalEvent.count } => 1, -> { Charge.count } => 1 do
       post stripe_webhooks_url, generate_body('stripe-webhook-examples/charge.succeeded.json')
@@ -47,7 +49,7 @@ class StripeWebhooksControllerTest < ActionDispatch::IntegrationTest
     timestamp = Time.now
     Stripe::Webhook::Signature.generate_header(
       timestamp,
-      Stripe::Webhook::Signature.compute_signature(timestamp, payload, StripeWebhookHelper.endpoint_secret),
+      Stripe::Webhook::Signature.compute_signature(timestamp, payload, endpoint_secret),
       scheme: Stripe::Webhook::Signature::EXPECTED_SCHEME
     )
   end

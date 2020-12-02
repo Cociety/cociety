@@ -1,10 +1,10 @@
-# Helper for StripeWebhookController
-module StripeWebhookHelper
-  def self.endpoint_secret
+# Helper for StripeWebhooksController
+module StripeWebhooksHelper
+  def endpoint_secret
     Rails.application.credentials.stripe[:signing_secret]
   end
 
-  def self.handle_event(event)
+  def handle_event(event)
     external_event = ExternalEvent.new(
       external_event_id:      event.id,
       external_entity_source: ExternalEntitySource.Stripe,
@@ -14,7 +14,7 @@ module StripeWebhookHelper
     handle_event_type external_event
   end
 
-  def self.handle_event_type(external_event)
+  def handle_event_type(external_event)
     klass_name = create_class_name_from_event_type external_event['type']
     begin
       klass_name.constantize
@@ -28,7 +28,7 @@ module StripeWebhookHelper
     end
   end
 
-  def self.create_class_name_from_event_type(event_type)
+  def create_class_name_from_event_type(event_type)
     suffix = event_type.split('.').map(&:classify).join('::')
     "EventHandler::#{suffix}"
   end
