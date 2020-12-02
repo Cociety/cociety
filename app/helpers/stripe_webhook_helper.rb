@@ -1,5 +1,9 @@
 # Helper for StripeWebhookController
 module StripeWebhookHelper
+  def self.endpoint_secret
+    Rails.application.credentials.stripe[ENV['RAILS_ENV'].to_sym][:signing_secret]
+  end
+
   def self.handle_event(event)
     external_event = ExternalEvent.new(
       external_event_id:      event.id,

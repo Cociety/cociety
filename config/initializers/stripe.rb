@@ -1,3 +1,2 @@
 require 'stripe'
-env = ENV['RAILS_ENV'] || 'development'
-Stripe.api_key = Rails.application.credentials.stripe[env.to_sym][:secret]
+Stripe.api_key = Rails.application.credentials.stripe[ENV['RAILS_ENV'].to_sym][:secret]

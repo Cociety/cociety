@@ -12,15 +12,24 @@ class StripeWebhooksController < ApiController
 
   private
 
-  def type?
-    @event.respond_to? :type
+  def set_event
+    @event = Stripe::Webhook.construct_event(
+      payload, sig_header, StripeWebhookHelper.endpoint_secret
+    )
+  rescue Stripe::SignatureVerificationError => e
+    Rails.logger.error e
+    render body: nil, status: :unauthorized
   end
 
   def payload
-    JSON.parse(request.raw_post, symbolize_names: true)
+    request.raw_post
   end
 
-  def set_event
-    @event = Stripe::Event.construct_from(payload)
+  def sig_header
+    request.env['HTTP_STRIPE_SIGNATURE']
+  end
+
+  def type?
+    @event.respond_to? :type
   end
 end

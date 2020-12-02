@@ -19,7 +19,7 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 
   def file_fixture_json(file_path)
-    file = file_fixture("#{file_path}.json").read
+    file = file_fixture(file_path).read
     JSON.parse(file)
   end
 end
