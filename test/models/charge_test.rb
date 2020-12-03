@@ -10,7 +10,8 @@ class ChargeTest < ActiveSupport::TestCase
   end
 
   test 'gets latest event for a charge' do
-    assert_equal charges(:last).id, charges(:first).latest_for_self.id
+    assert_equal charges(:last), charges(:first).latest_for_self
+    assert_equal charges(:last), Charge.latest_for_stripe_id(charges(:first).stripe_id)
   end
 
   test 'gets latest events for all charges' do

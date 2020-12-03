@@ -9,6 +9,7 @@ class Charge < ApplicationRecord
   enum status: { pending: 0, succeeded: 1, failed: 2 }
   has_one :external_event, foreign_key: %i[external_entity_source_id external_event_id]
   monetize :amount_cents
+  scope :latest_for_stripe_id, ->(stripe_id) { where(stripe_id: stripe_id).order(stripe_created: :desc).limit(1).first }
   self.primary_keys = :external_entity_source_id, :external_event_id, :stripe_id
 
   # rubocop:disable Metrics/MethodLength
@@ -40,6 +41,6 @@ class Charge < ApplicationRecord
   # rubocop:enable Metrics/MethodLength
 
   def latest_for_self
-    Charge.where(stripe_id: stripe_id).order(stripe_created: :desc).limit(1).first
+    Charge.latest_for_stripe_id(stripe_id)
   end
 end
