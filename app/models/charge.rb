@@ -19,17 +19,7 @@ class Charge < ApplicationRecord
         *
       FROM (
         SELECT DISTINCT ON(stripe_id)
-          amount_cents,
-          amount_currency,
-          customer_id,
-          refunded,
-          "status",
-          stripe_created,
-          stripe_id,
-          external_event_id,
-          external_entity_source_id,
-          created_at,
-          updated_at
+          *
         FROM
           charges
         WHERE
