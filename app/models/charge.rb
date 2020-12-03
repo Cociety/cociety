@@ -9,7 +9,6 @@ class Charge < ApplicationRecord
   enum status: { pending: 0, succeeded: 1, failed: 2 }
   has_one :external_event, foreign_key: %i[external_entity_source_id external_event_id]
   monetize :amount_cents
-  scope :testt, -> { find_by_sql('SELECT * FROM charges') }
   self.primary_keys = :external_entity_source_id, :external_event_id, :stripe_id
 
   # rubocop:disable Metrics/MethodLength
