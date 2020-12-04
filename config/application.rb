@@ -21,7 +21,7 @@ module OpenSourceSociety
 
     ENV['REDIS_HOST'] ||= 'localhost'
     ENV['REDIS_PORT'] ||= '6379'
-    ENV['SIDEKIQ_REDIS_URL'] ||= "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}/0"
-    ENV['ANYCABLE_REDIS_URL'] ||= "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}/1"
+    ENV['REDIS_URL'] ||= "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}"
+    ENV['SIDEKIQ_REDIS_URL'] ||= "#{ENV['REDIS_URL']}/0"
   end
 end
