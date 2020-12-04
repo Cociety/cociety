@@ -4,9 +4,10 @@ class StripeWebhooksController < ApiController
 
   def create
     if type?
-      render json: { message: helpers.handle_event(@event) }
+      SaveStripeEvent.perform_async(payload, signature)
+      render json: { status: :ok }
     else
-      render json: { message: 'type parameter is required' }
+      render json: { status: :error, message: 'type parameter is required' }
     end
   end
 
@@ -14,7 +15,7 @@ class StripeWebhooksController < ApiController
 
   def set_event
     @event = Stripe::Webhook.construct_event(
-      payload, sig_header, helpers.endpoint_secret
+      payload, signature, StripeHelper::Webhook.endpoint_secret
     )
   rescue Stripe::SignatureVerificationError => e
     Rails.logger.error e
@@ -25,7 +26,7 @@ class StripeWebhooksController < ApiController
     request.raw_post
   end
 
-  def sig_header
+  def signature
     request.env['HTTP_STRIPE_SIGNATURE']
   end
 

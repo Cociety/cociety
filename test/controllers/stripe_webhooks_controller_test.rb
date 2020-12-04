@@ -1,18 +1,20 @@
 require 'test_helper'
 
 class StripeWebhooksControllerTest < ActionDispatch::IntegrationTest
-  include StripeWebhooksHelper
-
   test 'saves charge succeeded events' do
     assert_difference -> { ExternalEvent.count } => 1, -> { Charge.count } => 1 do
-      post stripe_webhooks_url, generate_body('stripe-webhook-examples/charge.succeeded.json')
+      Sidekiq::Testing.inline! do
+        post stripe_webhooks_url, generate_body('stripe-webhook-examples/charge.succeeded.json')
+      end
     end
   end
 
   test 'saves charge refunded events' do
     body = generate_body('stripe-webhook-examples/charge.refunded.json')
     assert_difference -> { ExternalEvent.count } => 1, -> { Charge.count } => 1 do
-      post stripe_webhooks_url, body
+      Sidekiq::Testing.inline! do
+        post stripe_webhooks_url, body
+      end
     end
     event = Stripe::Event.construct_from(body[:params])
     assert Charge.find([ExternalEntitySource.Stripe.id, event.id, event.data.object.id]).refunded
@@ -20,13 +22,17 @@ class StripeWebhooksControllerTest < ActionDispatch::IntegrationTest
 
   test 'saves any event' do
     assert_difference -> { ExternalEvent.count } => 1, -> { Charge.count } => 0 do
-      post stripe_webhooks_url, generate_body('stripe-webhook-examples/unhandled.event.json')
+      Sidekiq::Testing.inline! do
+        post stripe_webhooks_url, generate_body('stripe-webhook-examples/unhandled.event.json')
+      end
     end
   end
 
   test 'associates events with customer' do
     body = generate_body('stripe-webhook-examples/charge.refunded.json')
-    post stripe_webhooks_url, body
+    Sidekiq::Testing.inline! do
+      post stripe_webhooks_url, body
+    end
     event = Stripe::Event.construct_from(body[:params])
     charge = Charge.find([ExternalEntitySource.Stripe.id, event.id, event.data.object.id])
     assert_equal customers(:one).id, charge.customer.id
@@ -49,7 +55,7 @@ class StripeWebhooksControllerTest < ActionDispatch::IntegrationTest
     timestamp = Time.now
     Stripe::Webhook::Signature.generate_header(
       timestamp,
-      Stripe::Webhook::Signature.compute_signature(timestamp, payload, endpoint_secret),
+      Stripe::Webhook::Signature.compute_signature(timestamp, payload, StripeHelper::Webhook.endpoint_secret),
       scheme: Stripe::Webhook::Signature::EXPECTED_SCHEME
     )
   end

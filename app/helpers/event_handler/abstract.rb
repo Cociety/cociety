@@ -8,4 +8,8 @@ class EventHandler::Abstract
   def handle(_external_event)
     raise 'handle method must be implemented'
   end
+
+  def stripe_event_id
+    @external_event.external_event_id
+  end
 end

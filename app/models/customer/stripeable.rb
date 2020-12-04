@@ -6,8 +6,6 @@ module Customer::Stripeable
       ExternalEntity.includes(:internal_entity)
                     .find([ExternalEntitySource.Stripe.id, stripe_id])
                     .internal_entity
-    rescue ActiveRecord::RecordNo´tFound => e
-      Rails.logger.error(e, "Failed to find customer for stripe id #{stripe_id}")
     end
   end
 
