@@ -8,13 +8,24 @@ class Payout
   end
 
   # Takes an array of customer charges and calculates how much to pay out to each organization
-  def self.from_charges(charges)
+  def self.from_charges(charges, expenses_sum)
     preload_charge_associations charges
     payouts = {}
     charges.each do |charge|
       add_payout! payouts, charge
     end
-    payouts
+    remove_expenses_from_payouts payouts, expenses_sum
+  end
+
+  private_class_method def self.preload_charge_associations(charges)
+    association = {
+      customer: {
+        payment_allocation_sets: {
+          payment_allocations: :organization
+        }
+      }
+    }
+    ActiveRecord::Associations::Preloader.new.preload(charges, association)
   end
 
   private_class_method def self.add_payout!(payouts, charge)
@@ -27,14 +38,15 @@ class Payout
     end
   end
 
-  private_class_method def self.preload_charge_associations(charges)
-    association = {
-      customer: {
-        payment_allocation_sets: {
-          payment_allocations: :organization
-        }
-      }
-    }
-    ActiveRecord::Associations::Preloader.new.preload(charges, association)
+  private_class_method def self.remove_expenses_from_payouts(payouts, expenses_sum)
+    sum_of_payouts_not_accounting_for_expenses = payouts.values.map(&:amount).reduce(:+)
+    sum_of_payouts = (sum_of_payouts_not_accounting_for_expenses - expenses_sum) * 0.40 # 40% of profits are donated
+    return [] unless sum_of_payouts.positive?
+
+    payouts.values.map do |p|
+      percent_of_payout_to_organization = p.amount / sum_of_payouts_not_accounting_for_expenses
+      p.amount = percent_of_payout_to_organization * sum_of_payouts
+      p
+    end
   end
 end

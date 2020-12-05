@@ -54,3 +54,14 @@ charge_<%= n %>:
   external_event_id: evt_<%= n %>
   external_entity_source: Stripe
 <% end %>
+
+ten:
+  amount_cents: 1000
+  amount_currency: USD
+  customer: one
+  refunded: true
+  status: 1
+  stripe_created: <%= now %>
+  stripe_id: ch_ten
+  external_event_id: evt_ten
+  external_entity_source: Stripe
