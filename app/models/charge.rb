@@ -10,6 +10,7 @@ class Charge < ApplicationRecord
   has_one :external_event, foreign_key: %i[external_entity_source_id external_event_id]
   monetize :amount_cents
   scope :latest_for_stripe_id, ->(stripe_id) { where(stripe_id: stripe_id).order(stripe_created: :desc).limit(1).first }
+  scope :with_payment_allocations, -> { includes(payment_allocations_association) }
   self.primary_keys = :external_entity_source_id, :external_event_id, :stripe_id
 
   # rubocop:disable Metrics/MethodLength
@@ -29,8 +30,8 @@ class Charge < ApplicationRecord
           stripe_created DESC
       ) AS latest_events_per_charge
       WHERE
-        refunded = false
-        and "status" = $3
+      refunded = false
+      and "status" = $3
     SQL
     find_by_sql(query, [
                   [nil, range.begin],
@@ -39,6 +40,16 @@ class Charge < ApplicationRecord
                 ])
   end
   # rubocop:enable Metrics/MethodLength
+
+  def self.payment_allocations_association
+    {
+      customer: {
+        payment_allocation_sets: {
+          payment_allocations: :organization
+        }
+      }
+    }
+  end
 
   def latest_for_self
     Charge.latest_for_stripe_id(stripe_id)
