@@ -1,6 +1,7 @@
 class Customer < ApplicationRecord
   include Stripeable
 
+  alias_attribute :tiers, :customer_tiers
   before_save { first_name&.strip! }
   before_save { last_name&.strip! }
   default_scope { order(created_at: :asc) }
@@ -9,6 +10,7 @@ class Customer < ApplicationRecord
   has_many :emails, class_name: 'CustomerEmail', autosave: true
   has_many :external_entities, as: :internal_entity
   has_many :payment_allocation_sets, autosave: true
+  has_many :customer_tiers
   validates :first_name, presence: true, allow_blank: false
   validates :last_name, presence: true, allow_blank: false
   validates :emails, length: { minimum: 1 }
@@ -29,5 +31,9 @@ class Customer < ApplicationRecord
 
   def payment_allocations
     payment_allocation_sets.last.payment_allocations
+  end
+
+  def current_tier
+    tiers.active.first
   end
 end

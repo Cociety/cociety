@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_02_070955) do
+ActiveRecord::Schema.define(version: 2020_12_08_020838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -45,6 +45,17 @@ ActiveRecord::Schema.define(version: 2020_12_02_070955) do
     t.index ["customer_id", "is_default"], name: "index_customer_emails_on_customer_id_and_is_default", unique: true, where: "is_default"
     t.index ["customer_id"], name: "index_customer_emails_on_customer_id"
     t.index ["email"], name: "index_customer_emails_on_email", unique: true
+  end
+
+  create_table "customer_tiers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "customer_id", null: false
+    t.uuid "tier_id", null: false
+    t.datetime "effective", null: false
+    t.datetime "expiration", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_customer_tiers_on_customer_id"
+    t.index ["tier_id"], name: "index_customer_tiers_on_tier_id"
   end
 
   create_table "customers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -121,6 +132,14 @@ ActiveRecord::Schema.define(version: 2020_12_02_070955) do
     t.index ["payment_allocation_set_id"], name: "index_payment_to_group"
   end
 
+  create_table "tiers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "charges", "customers"
   add_foreign_key "customer_emails", "customers"
+  add_foreign_key "customer_tiers", "customers"
+  add_foreign_key "customer_tiers", "tiers"
 end

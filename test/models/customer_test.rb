@@ -52,4 +52,8 @@ class CustomerTest < ActiveSupport::TestCase
       customers(:one).create_charge(100, 'USD')
     end
   end
+
+  test "gets a customer's current tier" do
+    assert_equal customer_tiers(:one_current).id, customers(:one).current_tier.id
+  end
 end

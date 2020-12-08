@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one_first:
+  customer: one
+  tier: free
+  effective: <%= 1.month.ago %>
+  expiration: <%= Time.now %>
+  created_at: <%= 1.month.ago %>
+  updated_at: <%= 1.month.ago %>
+
+one_current:
+  customer: one
+  tier: free
+  effective: <%= 1.month.ago %>
+  expiration: <%= Time.now %>
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+
+one_last:
+  customer: one
+  tier: free
+  effective: <%= 1.month.from_now %>
+  expiration: <%= 2.months.from_now %>
+  created_at: <%= 1.second.from_now %>
+  updated_at: <%= 1.second.from_now %>
