@@ -12,6 +12,6 @@ class PaymentAllocationSet < ApplicationRecord
   private
 
   def payment_percent_sum_to_100
-    errors[:base] << 'payment percentages must add to 100' unless payment_percent_sum == 100
+    errors.add :base, 'payment percentages must add to 100' unless payment_percent_sum == 100
   end
 end

@@ -68,6 +68,5 @@ class RemoveCompositeKeys < ActiveRecord::Migration[6.0]
       t.index :stripe_id, unique: false
       t.index :stripe_created, unique: false
     end
-
   end
 end
