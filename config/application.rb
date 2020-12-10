@@ -17,11 +17,5 @@ module OpenSourceSociety
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    config.active_job.queue_adapter = :sidekiq
-
-    ENV['REDIS_HOST'] ||= 'localhost'
-    ENV['REDIS_PORT'] ||= '6379'
-    ENV['REDIS_URL'] ||= "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}"
-    ENV['SIDEKIQ_REDIS_URL'] ||= "#{ENV['REDIS_URL']}/0"
   end
 end
