@@ -3,7 +3,7 @@ class CustomerTier < ApplicationRecord
   belongs_to :tier
   belongs_to :customer
   default_scope -> { order(created_at: :desc) }
-  scope :active, ->(time = Time.now) { where('effective < ? AND ? > expiration', time, time) }
+  scope :active, ->(time = Time.now) { where('effective < ?', time).where('? > expiration', time) }
   validate :effective_time_must_not_overlap_exisiting_tier
 
   private
