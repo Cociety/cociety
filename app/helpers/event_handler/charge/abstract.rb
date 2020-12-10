@@ -11,6 +11,7 @@ class EventHandler::Charge::Abstract < EventHandler::Abstract
   rescue ActiveRecord::RecordNotUnique => e
     Rails.logger.error e
     Rails.logger.error "Duplicate charge event detected for event #{stripe_event_id} and charge #{stripe_charge_id}"
+    throw e
   end
 
   def customer

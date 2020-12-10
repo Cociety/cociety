@@ -4,7 +4,7 @@ class Charge < ApplicationRecord
   default_scope -> { order(stripe_created: :desc) }
   alias_attribute :source, :external_entity_source
   alias_attribute :event, :external_event
-  belongs_to :customer
+  belongs_to :customer, optional: true
   belongs_to :external_event
   enum status: { pending: 0, succeeded: 1, failed: 2 }
   monetize :amount_cents

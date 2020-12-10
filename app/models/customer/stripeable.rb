@@ -5,7 +5,7 @@ module Customer::Stripeable
     def self.find_by_stripe_id(stripe_id)
       ExternalEntity.includes(:internal_entity)
                     .find_by(external_entity_source_id: ExternalEntitySource.Stripe.id, external_id: stripe_id)
-                    .internal_entity
+                    &.internal_entity
     end
   end
 
