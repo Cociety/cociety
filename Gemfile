@@ -66,3 +66,5 @@ gem "redis-namespace", "~> 1.8"
 gem "stripe-ruby-mock", "~> 3.0"
 
 gem "money-rails", "~> 1.13"
+
+gem "devise", "~> 4.7"

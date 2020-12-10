@@ -4,18 +4,22 @@ one:
   password_digest: <%= BCrypt::Password.create('secret') %>
   first_name: Customer
   last_name: One
+  email: customer_one@opensourcesociety.com
 
 two:
   password_digest: <%= BCrypt::Password.create('secret') %>
   first_name: Customer
   last_name: Two
+  email: customer_two@opensourcesociety.com
 
 three:
   password_digest: <%= BCrypt::Password.create('secret') %>
   first_name: Customer
   last_name: Three
+  email: customer_three@opensourcesociety.com
 
 four:
   password_digest: <%= BCrypt::Password.create('secret') %>
   first_name: Customer
   last_name: Four
+  email: customer_four@opensourcesociety.com

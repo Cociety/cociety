@@ -2,20 +2,13 @@ require 'test_helper'
 
 class CustomerTest < ActiveSupport::TestCase
   test 'finds a customer by email' do
-    expectedCustomerId = customers(:one).id
-    actualCustomerId = Customer.find_by_email('customer_one_2@opensourcesociety.com').id
-    assert_equal expectedCustomerId, actualCustomerId
-  end
-
-  test 'returns a customers default email' do
-    customer = Customer.find_by_email('customer_one_2@opensourcesociety.com')
-    assert_equal 'customer_one@opensourcesociety.com', customer.default_email.email
-    assert customer.default_email.is_default
+    expected_customer_id = customers(:one).id
+    actual_customer_id = Customer.find_by_email('customer_one@opensourcesociety.com').id
+    assert_equal expected_customer_id, actual_customer_id
   end
 
   test "strips whitespace from customer's name before saving" do
-    email = CustomerEmail.new(email: 'customersLastName@opensourcesociety.com')
-    c = Customer.new(first_name: ' has spaces ', last_name: ' customersLastName ', password: 'secret', emails: [email])
+    c = Customer.new(first_name: ' has spaces ', last_name: ' customersLastName ', password: 'secret', email: 'customersLastName@opensourcesociety.com')
     c.save!
     assert_equal 'has spaces', c.first_name
     assert_equal 'customersLastName', c.last_name
@@ -36,11 +29,10 @@ class CustomerTest < ActiveSupport::TestCase
 
   test 'refuses to create a customer without an email' do
     assert_raise ActiveRecord::RecordInvalid do
-      Customer.new(password: 'test', first_name: 'Melissa', last_name: 'Galush').save!
+      Customer.new(password: 'test123', first_name: 'Melissa', last_name: 'Galush').save!
     end
 
-    email = CustomerEmail.new(email: 'mgalush@opensourcesociety.com')
-    assert Customer.new(password: 'test', first_name: 'Melissa', last_name: 'Galush', emails: [email]).save!
+    assert Customer.new(password: 'test123', first_name: 'Melissa', last_name: 'Galush', email: 'mgalush@opensourcesociety.com').save!
   end
 
   test 'finds a customer by stripe id' do

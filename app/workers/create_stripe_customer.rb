@@ -5,7 +5,7 @@ class CreateStripeCustomer
   def perform(customer_id)
     customer = Customer.find(customer_id)
 
-    existing_stripe_customer = StripeHelper::Customer.find_by_email(customer.default_email.email)
+    existing_stripe_customer = StripeHelper::Customer.find_by_email(customer.email)
     if existing_stripe_customer
       begin
         StripeHelper::Customer.link_to_customer(existing_stripe_customer, customer)
