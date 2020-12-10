@@ -5,25 +5,25 @@
 # below each fixture, per the syntax in the comments below
 #
 first:
-  external_event_id: evt_0
+  external_id: evt_0
   external_entity_source: Stripe
   raw: {id: evt_0, type: "charge.succeeded"}
 
 <% for n in 1..1000 %>
 evt_<%= n %>:
-  external_event_id: evt_<%= n %>
+  external_id: evt_<%= n %>
   external_entity_source: Stripe
   raw: {id: evt_<%= n %>, type: "charge.succeeded"}
 <% end %>
 
 last:
-  external_event_id: evt_1001
+  external_id: evt_1001
   external_entity_source: Stripe
   raw: {id: evt_1001, type: "charge.succeeded"}
 
 <% for n in 2000..2999 %>
 evt_<%= n %>:
-  external_event_id: evt_<%= n %>
+  external_id: evt_<%= n %>
   external_entity_source: Stripe
   raw: {id: evt_<%= n %>, type: "charge.succeeded"}
 <% end %>

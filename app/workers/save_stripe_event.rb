@@ -7,7 +7,7 @@ class SaveStripeEvent
     event = Stripe::Webhook.construct_event(payload, signature, StripeHelper::Webhook.endpoint_secret)
     logger.info "Processing stripe event #{event.id}"
     external_event = ExternalEvent.new(
-      external_event_id:      event.id,
+      external_id:            event.id,
       external_entity_source: ExternalEntitySource.Stripe,
       raw:                    event
     )

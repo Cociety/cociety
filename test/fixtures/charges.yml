@@ -13,8 +13,7 @@ last:
   status: 1
   stripe_created: <%= now %>
   stripe_id: ch_123
-  external_event_id: evt_1001
-  external_entity_source: Stripe
+  external_event: evt_1001
 
 <% for n in 1..1000 %>
 charge_<%= n %>:
@@ -25,8 +24,7 @@ charge_<%= n %>:
   status: 1
   stripe_created: <%= now - n %>
   stripe_id: ch_123
-  external_event_id: evt_<%= n %>
-  external_entity_source: Stripe
+  external_event: evt_<%= n %>
 <% end %>
 
 first:
@@ -37,8 +35,7 @@ first:
   status: 1
   stripe_created: <%= now - 1001 %>
   stripe_id: ch_123
-  external_event_id: evt_0
-  external_entity_source: Stripe
+  external_event: first
 
 # odd numbered ones are marked refunded
 # status cycles between 0, 1, 2
@@ -51,8 +48,7 @@ charge_<%= n %>:
   status: <%= n%3 %>
   stripe_created: <%= now - n %>
   stripe_id: ch_<%= n %>
-  external_event_id: evt_<%= n %>
-  external_entity_source: Stripe
+  external_event: evt_<%= n %>
 <% end %>
 
 ten:
@@ -63,5 +59,4 @@ ten:
   status: 1
   stripe_created: <%= now %>
   stripe_id: ch_ten
-  external_event_id: evt_ten
-  external_entity_source: Stripe
+  external_event: evt_10

@@ -30,14 +30,13 @@ class EventHandler::Charge::Abstract < EventHandler::Abstract
 
   def initialize_charge_model
     Charge.new(
-      amount:                    Money.new(@stripe_charge['amount'], @stripe_charge['currency']),
-      customer:                  customer,
-      refunded:                  @stripe_charge['refunded'],
-      status:                    @stripe_charge['status'],
-      stripe_created:            @stripe_charge['created'],
-      stripe_id:                 stripe_charge_id,
-      external_entity_source_id: @external_event.external_entity_source_id,
-      external_event_id:         @external_event.external_event_id
+      amount:         Money.new(@stripe_charge['amount'], @stripe_charge['currency']),
+      customer:       customer,
+      refunded:       @stripe_charge['refunded'],
+      status:         @stripe_charge['status'],
+      stripe_created: @stripe_charge['created'],
+      stripe_id:      stripe_charge_id,
+      external_event: @external_event
     )
   end
 end

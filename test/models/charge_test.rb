@@ -1,10 +1,6 @@
 require 'test_helper'
 
 class ChargeTest < ActiveSupport::TestCase
-  test 'has a source' do
-    assert charges(:first).source
-  end
-
   test 'has an event' do
     assert charges(:first).event
   end

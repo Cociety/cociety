@@ -10,26 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_10_043345) do
+ActiveRecord::Schema.define(version: 2020_12_10_061911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "charges", primary_key: ["external_entity_source_id", "external_event_id", "stripe_id"], force: :cascade do |t|
+  create_table "charges", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "amount_cents", default: 0, null: false
     t.string "amount_currency", default: "USD", null: false
     t.boolean "refunded", default: false
     t.integer "status", null: false
     t.integer "stripe_created"
-    t.string "stripe_id", null: false
-    t.string "external_event_id", null: false
-    t.uuid "external_entity_source_id", null: false
+    t.string "stripe_id"
+    t.uuid "external_event_id", null: false
+    t.uuid "customer_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.uuid "customer_id", null: false
     t.index ["customer_id"], name: "index_charges_on_customer_id"
-    t.index ["external_entity_source_id"], name: "index_charges_on_external_entity_source_id"
     t.index ["external_event_id"], name: "index_charges_on_external_event_id"
     t.index ["stripe_created"], name: "index_charges_on_stripe_created"
     t.index ["stripe_id"], name: "index_charges_on_stripe_id"
@@ -66,7 +64,7 @@ ActiveRecord::Schema.define(version: 2020_12_10_043345) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "external_entities", primary_key: ["external_entity_source_id", "external_id"], force: :cascade do |t|
+  create_table "external_entities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "external_id", null: false
     t.uuid "external_entity_source_id", null: false
     t.string "internal_entity_type"
@@ -85,13 +83,13 @@ ActiveRecord::Schema.define(version: 2020_12_10_043345) do
     t.index ["name"], name: "index_external_entity_sources_on_name", unique: true
   end
 
-  create_table "external_events", primary_key: ["external_entity_source_id", "external_event_id"], force: :cascade do |t|
-    t.string "external_event_id", null: false
+  create_table "external_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "external_id", null: false
     t.uuid "external_entity_source_id", null: false
     t.json "raw"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["external_entity_source_id", "external_event_id"], name: "index-external_source-external_id"
+    t.index ["external_entity_source_id", "external_id"], name: "index-external_source-external_id"
     t.index ["external_entity_source_id"], name: "index_external_events_on_external_entity_source_id"
   end
 

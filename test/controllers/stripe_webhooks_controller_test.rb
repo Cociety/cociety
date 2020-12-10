@@ -17,7 +17,9 @@ class StripeWebhooksControllerTest < ActionDispatch::IntegrationTest
       end
     end
     event = Stripe::Event.construct_from(body[:params])
-    assert Charge.find([ExternalEntitySource.Stripe.id, event.id, event.data.object.id]).refunded
+    assert Charge.find_by(
+      stripe_id: event.data.object.id
+    ).refunded
   end
 
   test 'saves any event' do
@@ -34,7 +36,9 @@ class StripeWebhooksControllerTest < ActionDispatch::IntegrationTest
       post stripe_webhooks_url, body
     end
     event = Stripe::Event.construct_from(body[:params])
-    charge = Charge.find([ExternalEntitySource.Stripe.id, event.id, event.data.object.id])
+    charge = Charge.find_by(
+      stripe_id: event.data.object.id
+    )
     assert_equal customers(:one).id, charge.customer.id
   end
 

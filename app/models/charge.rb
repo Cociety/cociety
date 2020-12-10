@@ -4,14 +4,12 @@ class Charge < ApplicationRecord
   default_scope -> { order(stripe_created: :desc) }
   alias_attribute :source, :external_entity_source
   alias_attribute :event, :external_event
-  belongs_to :external_entity_source
   belongs_to :customer
+  belongs_to :external_event
   enum status: { pending: 0, succeeded: 1, failed: 2 }
-  has_one :external_event, foreign_key: %i[external_entity_source_id external_event_id]
   monetize :amount_cents
   scope :latest_for_stripe_id, ->(stripe_id) { where(stripe_id: stripe_id).order(stripe_created: :desc).limit(1).first }
   scope :with_payment_allocations, -> { includes(payment_allocations_association) }
-  self.primary_keys = :external_entity_source_id, :external_event_id, :stripe_id
 
   # rubocop:disable Metrics/MethodLength
   def self.latest_succeeded_non_refunded(range = 0..2_147_483_647)
