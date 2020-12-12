@@ -14,8 +14,6 @@ class Customer < ApplicationRecord
   has_many :external_entities, as: :internal_entity
   has_many :payment_allocation_sets, autosave: true
   has_many :customer_tiers
-  validates :first_name, presence: true, allow_blank: false
-  validates :last_name, presence: true, allow_blank: false
 
   def full_name
     "#{first_name.strip} #{last_name.strip}".strip
