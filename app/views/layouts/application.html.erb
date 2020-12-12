@@ -3,28 +3,19 @@
 
 <head>
   <title>Open Source Society</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
 <body>
-  <% if notice %>
-    <p class="alert alert-success"><%= notice %></p>
-  <% end %>
-  <% if alert %>
-    <p class="alert alert-danger"><%= alert %></p>
-  <% end %>
-  <% if customer_signed_in? %>
-    Logged in as <strong><%= current_customer.email %></strong>.
-    <%= link_to 'Edit profile', edit_customer_registration_path, :class => 'navbar-link' %> |
-    <%= link_to "Logout", destroy_customer_session_path, method: :delete, :class => 'navbar-link'  %>
-  <% else %>
-    <%= link_to "Sign up", new_customer_registration_path, :class => 'navbar-link'  %> |
-    <%= link_to "Login", new_customer_session_path, :class => 'navbar-link'  %>
-  <% end %>
+  <%= render "nav" %>
   <%= yield %>
 </body>
 
