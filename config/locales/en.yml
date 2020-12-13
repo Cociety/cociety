@@ -33,8 +33,9 @@ en:
   hello: "Hello world"
   auth:
     forgot_pwd?: Forgot your password?
-    login: "Log in"
-    login_with: "Log in with %{with}"
+    login: "Login"
+    login_with: "Login with %{with}"
+    login_to_account: Login to your account
     no_confirm_instructions?: "Didn't receive confirmation instructions?"
     no_unlock_instructions?: "Didn't receive unlock instructions?"
     sign_up: "Sign up"
@@ -49,3 +50,4 @@ en:
         password: Password
         password_min: Password (%{min} characters minimum)
         password_confirmation: Password Confirmation
+        remember_me: Remember me?
