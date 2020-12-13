@@ -32,6 +32,20 @@
 en:
   hello: "Hello world"
   auth:
+    forgot_pwd?: Forgot your password?
     login: "Log in"
+    login_with: "Log in with %{with}"
+    no_confirm_instructions?: "Didn't receive confirmation instructions?"
+    no_unlock_instructions?: "Didn't receive unlock instructions?"
     sign_up: "Sign up"
     sign_out: "Sign out"
+    registration:
+      sign_up_for_account: Sign up for an account
+  helpers:
+    label:
+      customer:
+        email: Email
+        name: Full name
+        password: Password
+        password_min: Password (%{min} characters minimum)
+        password_confirmation: Password Confirmation
