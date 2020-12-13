@@ -1,0 +1,23 @@
+.btn {
+  @apply py-2 px-4 rounded text-center transition-all duration-300 ease-in-out;
+}
+
+.btn-sm {
+  @apply py-1 px-2;
+}
+
+.btn-round {
+  @apply rounded-full;
+}
+
+.btn:hover {
+  @apply cursor-pointer;
+}
+
+.btn-primary {
+  @apply font-bold bg-blue-500 text-white;
+}
+
+.btn-secondary {
+  @apply bg-gray-100 text-blue-800;
+}
