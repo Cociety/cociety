@@ -2,7 +2,7 @@ class StripeHelper::Customer
   def self.create(customer)
     Stripe::Customer.create({
                               email:    customer.email,
-                              name:     customer.full_name,
+                              name:     customer.name,
                               metadata: {
                                 customer_id: customer.id
                               }

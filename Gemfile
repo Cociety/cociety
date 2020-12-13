@@ -68,3 +68,5 @@ gem "stripe-ruby-mock", "~> 3.0"
 gem "money-rails", "~> 1.13"
 
 gem "devise", "~> 4.7"
+
+gem "name_of_person", "~> 1.1"

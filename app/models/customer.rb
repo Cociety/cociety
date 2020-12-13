@@ -7,16 +7,19 @@ class Customer < ApplicationRecord
          :confirmable, :lockable, :timeoutable, :trackable
 
   alias_attribute :tiers, :customer_tiers
-  before_save { first_name&.strip! }
-  before_save { last_name&.strip! }
   default_scope { order(created_at: :asc) }
   has_many :charges
   has_many :external_entities, as: :internal_entity
   has_many :payment_allocation_sets, autosave: true
   has_many :customer_tiers
+  has_person_name
 
-  def full_name
-    "#{first_name.strip} #{last_name.strip}".strip
+  def first_name=(f_name)
+    super f_name&.strip
+  end
+
+  def last_name=(l_name)
+    super l_name&.strip
   end
 
   def payment_allocations

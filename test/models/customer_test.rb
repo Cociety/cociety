@@ -16,7 +16,7 @@ class CustomerTest < ActiveSupport::TestCase
 
   test "properly formats customer's full name" do
     c = Customer.new(first_name: ' has spaces ', last_name: ' customersLastName ')
-    assert_equal 'has spaces customersLastName', c.full_name
+    assert_equal 'has spaces customersLastName', c.name
   end
 
   test 'gets the latest payment allocations' do
