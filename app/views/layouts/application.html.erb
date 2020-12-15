@@ -14,9 +14,11 @@
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
-<body class="h-screen w-screen">
+<body class="h-screen w-screen bg-gray-100">
   <%= render "nav" %>
-  <%= yield %>
+  <div class="mt-16 h-full w-full">
+    <%= yield %>
+  </div>
 </body>
 
 </html>
