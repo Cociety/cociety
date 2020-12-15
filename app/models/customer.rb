@@ -23,7 +23,7 @@ class Customer < ApplicationRecord
   end
 
   def payment_allocations
-    payment_allocation_sets.last.payment_allocations
+    payment_allocation_sets&.last&.payment_allocations || []
   end
 
   def current_tier

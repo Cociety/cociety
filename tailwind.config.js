@@ -7,7 +7,11 @@ module.exports = {
   theme: {
     extend: {},
   },
-  variants: {},
+  variants: {
+    extend: {
+      borderRadius: ['first', 'last']
+    }
+  },
   plugins: [
     require('@tailwindcss/forms'),
   ],

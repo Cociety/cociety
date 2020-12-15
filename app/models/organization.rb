@@ -6,4 +6,8 @@ class Organization < ApplicationRecord
   validates :description, length: { minimum: 1 }
   validates :url, presence: true, secure_url: true
   validates :organization_categories, length: { minimum: 1 }
+
+  def initial
+    name&.chars&.first || ''
+  end
 end
