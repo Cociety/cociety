@@ -10,7 +10,8 @@
     "alpinejs": "^2.7.3",
     "autoprefixer": "^10.1.0",
     "tailwindcss": "^2.0.2",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "webpack": "^4.44.2"
   },
   "version": "0.1.0",
   "devDependencies": {
