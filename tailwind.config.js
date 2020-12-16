@@ -3,10 +3,7 @@ module.exports = {
     // removeDeprecatedGapUtilities: true,
     // purgeLayersByDefault: true,
   },
-  purge: {
-    enabled: true,
-    content: ['./app/views/**/*.html.erb']
-  },
+  purge: ['./app/views/**/*.html.erb'],
   theme: {
     extend: {},
   },
