@@ -6,6 +6,7 @@ require 'support/sidekiq_helper'
 require 'support/stripe_support'
 
 class ActiveSupport::TestCase
+  include Devise::Test::IntegrationHelpers
   include StripeSupport
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
