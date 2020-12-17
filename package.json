@@ -9,14 +9,14 @@
     "@tailwindcss/forms": "^0.2.1",
     "alpinejs": "^2.7.3",
     "autoprefixer": "^10.1.0",
+    "postcss": "^8.2.1",
+    "postcss-loader": "^4.1.0",
     "tailwindcss": "^2.0.2",
     "turbolinks": "^5.2.0",
     "webpack": "^4.44.2"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "postcss": "^8.2.1",
-    "postcss-loader": "^4.1.0",
     "webpack-dev-server": "^3.11.0"
   }
 }
