@@ -1,0 +1,2 @@
+module PaymentAllocationsHelper
+end

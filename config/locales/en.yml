@@ -34,11 +34,6 @@ en:
       nav:
         user:
           profile: Profile
-  customer:
-    profile:
-      index:
-        details: Basic details
-        where_dontations_going?: Where are my donations going?
   auth:
     forgot_pwd?: Forgot your password?
     login: Login
@@ -50,6 +45,14 @@ en:
     sign_out: Sign out
     registration:
       sign_up_for_account: Sign up for an account
+  customer:
+    profile:
+      index:
+        details: Basic details
+        where_dontations_going?: Where are my donations going?
+      payment_allocations:
+        none: You haven't set that up yet. How about now?
+  edit: Edit
   helpers:
     label:
       customer:

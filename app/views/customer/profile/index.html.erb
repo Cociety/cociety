@@ -28,7 +28,10 @@
       </div>
     <% end %>
     <%= render "customer/profile/section" do %>
-      <h2 class="text-xl"><%= t '.where_dontations_going?' %></h2>
+      <div class="flex justify-between">
+        <h2 class="text-xl"><%= t '.where_dontations_going?' %></h2>
+        <%= link_to t('edit'), customer_payment_allocations_path, class: "btn btn-primary" %>
+      </div>
       <%= render "customer/profile/payment_allocations", payment_allocations: current_customer.payment_allocations %>
     <% end %>
   </div>
