@@ -13,11 +13,15 @@
   <ul class="divide-y divide-gray-200">
     <% colors = %w(bg-indigo-600 bg-pink-600 bg-red-500 bg-yellow-500 bg-blue-600 bg-green-500) %>
     <% payment_allocations.each do |p| %>
-      <li class="py-4 flex">
-        <%= render "organization/avatar", organization: p.organization, bg_color: colors.shift %>
+      <li class="py-4 flex items-center">
+        <div class="<%= colors.shift %> h-6 w-6 rounded-full"></div>
+        <div class="ml-3">
+          <%= render "organization/avatar", organization: p.organization %>
+        </div>
         <div class="ml-3">
           <p class="text-sm font-medium text-gray-900"><%= p.percent %>%</p>
           <p class="text-sm text-gray-500"><%= p.organization.name %></p>
+          <%= link_to p.organization.url, p.organization.url, class: "underline text-gray-500 hover:text-gray-900" %>
         </div>
       </li>
     <% end %>
