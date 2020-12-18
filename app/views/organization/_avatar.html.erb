@@ -1,6 +1,8 @@
 <% bg_color ||= 'bg-gray-500' %>
-<% if organization_has_logo_image?(organization) %>
-  <%= image_tag(organization.image_url, classs: "inline-block h-8 w-8 rounded-full", alt:organization.name) %>
+<% if organization.logo.present? %>
+  <div class="h-8 w-32">
+    <%= image_tag(organization.logo, class: "object-contain h-full block m-auto", alt: organization.name) %>
+  </div>
 <% else %>
   <span class="inline-flex items-center justify-center h-8 w-8 rounded-full <%= bg_color %> %">
     <span class="font-medium leading-none text-white"><%= organization.initial %></span>
