@@ -1,0 +1,39 @@
+<% if customer_signed_in? %>
+  <div class="ml-4 flex items-center md:ml-6">
+    <button class="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700">
+      <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+      </svg>
+    </button>
+    <div @click.away="open = false" class="ml-3 relative" x-data="{ open: false }">
+      <div>
+        <button @click="open = !open" class="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid">
+          <%= render "customer/avatar" %>
+        </button>
+      </div>
+      <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg overflow-hidden">
+        <div class="bg-white">
+          <%= link_to customer_profile_index_path, :class => 'inline-flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-200' do %>
+            <%= render 'svg/identification', size:4 %>
+            <%= t '.profile' %>
+          <% end %>
+        </div>
+        <div class="bg-white">
+          <%= link_to destroy_customer_session_path, method: :delete, :class => 'inline-flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-200' do %>
+            <%= render 'svg/sign-out', size:4 %>
+            <%= t 'auth.sign_out' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <%= link_to new_customer_registration_path, :class => 'btn btn-primary' do %>
+    <%= render 'svg/customer', size:4 %>
+    <%= t 'auth.sign_up' %>
+  <% end %>
+  <%= link_to new_customer_session_path, :class => 'btn btn-secondary' do %>
+    <%= render 'svg/login', size:4 %>
+    <%= t 'auth.login' %>
+  <% end %>
+<% end %>

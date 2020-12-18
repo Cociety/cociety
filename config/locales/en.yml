@@ -32,7 +32,7 @@
 en:
   application:
       nav:
-        user:
+        customer:
           profile: Profile
   auth:
     forgot_pwd?: Forgot your password?
