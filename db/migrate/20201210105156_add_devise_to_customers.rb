@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddDeviseToCustomers < ActiveRecord::Migration[6.1]
   def self.up
     change_table :customers do |t|

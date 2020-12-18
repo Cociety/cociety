@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - 'bin/**/*'
+    - config/application.rb
     - 'db/schema.rb'
     - 'Gemfile'
     - 'node_modules/**/*'

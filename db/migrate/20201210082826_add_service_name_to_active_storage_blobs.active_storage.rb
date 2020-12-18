@@ -15,8 +15,6 @@ class AddServiceNameToActiveStorageBlobs < ActiveRecord::Migration[6.0]
   end
 
   def down
-    if table_exists?(:active_storage_blobs)
-      remove_column :active_storage_blobs, :service_name
-    end
+    remove_column :active_storage_blobs, :service_name if table_exists?(:active_storage_blobs)
   end
 end
