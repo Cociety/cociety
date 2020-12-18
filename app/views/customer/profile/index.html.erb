@@ -1,7 +1,7 @@
 <div class="w-full h-full px-1 md:px-10">
   <div class="space-y-6 pt-6">
     <%= render "customer/profile/section" do %>
-      <h2 class="text-xl">Basic details</h2>
+      <h2 class="text-xl"><%= t '.details' %></h2>
       <div>
         <% label_class = "block text-sm font-medium text-gray-700" %>
         <% input_class = "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
@@ -9,27 +9,27 @@
           <div class="col-span-4 gap-6">
             <%= f.label :first_name, class: label_class %>
             <div class="mt-1">
-              <%= f.text_field :name, autofocus: true, autocomplete: "given-name", class: input_class, value: current_customer.name.first %>
+              <%= f.text_field :name, autocomplete: "given-name", class: input_class, value: current_customer.name.first %>
             </div>
           </div>
           <div class="col-span-4 gap-6">
             <%= f.label :last_name, class: label_class %>
             <div class="mt-1">
-              <%= f.text_field :name, autofocus: true, autocomplete: "family-name", class: input_class, value: current_customer.name.last %>
+              <%= f.text_field :name, autocomplete: "family-name", class: input_class, value: current_customer.name.last %>
             </div>
           </div>
           <div class="col-span-4 gap-6">
             <%= f.label :email, class: label_class %>
             <div class="mt-1">
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: input_class, value: current_customer.email %>
+              <%= f.email_field :email, autocomplete: "email", class: input_class, value: current_customer.email %>
             </div>
           </div>
         <% end %>
       </div>
     <% end %>
     <%= render "customer/profile/section" do %>
-      <h2 class="text-xl">Where are my donations going?</h2>
-      <%= render "customer/profile/payment_allocations" %>
+      <h2 class="text-xl"><%= t '.where_dontations_going?' %></h2>
+      <%= render "customer/profile/payment_allocations", payment_allocations: current_customer.payment_allocations %>
     <% end %>
   </div>
 </div>

@@ -30,17 +30,24 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  application:
+      nav:
+        user:
+          profile: Profile
   customer:
-    profile: "Profile"
+    profile:
+      index:
+        details: Basic details
+        where_dontations_going?: Where are my donations going?
   auth:
     forgot_pwd?: Forgot your password?
-    login: "Login"
-    login_with: "Login with %{with}"
+    login: Login
+    login_with: Login with %{with}
     login_to_account: Login to your account
-    no_confirm_instructions?: "Didn't receive confirmation instructions?"
-    no_unlock_instructions?: "Didn't receive unlock instructions?"
-    sign_up: "Sign up"
-    sign_out: "Sign out"
+    no_confirm_instructions?: Didn't receive confirmation instructions?
+    no_unlock_instructions?: Didn't receive unlock instructions?
+    sign_up: Sign up
+    sign_out: Sign out
     registration:
       sign_up_for_account: Sign up for an account
   helpers:

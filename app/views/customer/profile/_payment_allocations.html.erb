@@ -1,9 +1,10 @@
-<% if current_customer.payment_allocations.empty? %>
+<% payment_allocations ||= [] %>
+<% if payment_allocations.empty? %>
   You haven't set that up yet. How about now?
 <% else %>
   <div class="flex m-2 p-2">
     <% colors = %w(bg-indigo-600 bg-pink-600 bg-red-500 bg-yellow-500 bg-blue-600 bg-green-500) %>
-    <% current_customer.payment_allocations.each do |p| %>
+    <% payment_allocations.each do |p| %>
       <div class="first:rounded-l-lg last:rounded-r-lg shadow h-8 text-center <%= colors.shift %>" style="width: <%= p.percent %>%">
         <span class="text-sm font-medium text-gray-100 leading-8"><%= p.organization.name %></span>
       </div>
@@ -11,7 +12,7 @@
   </div>
   <ul class="divide-y divide-gray-200">
     <% colors = %w(bg-indigo-600 bg-pink-600 bg-red-500 bg-yellow-500 bg-blue-600 bg-green-500) %>
-    <% current_customer.payment_allocations.each do |p| %>
+    <% payment_allocations.each do |p| %>
       <li class="py-4 flex">
         <%= render "organization/avatar", organization: p.organization, bg_color: colors.shift %>
         <div class="ml-3">
