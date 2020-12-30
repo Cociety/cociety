@@ -4,7 +4,7 @@ one:
   encrypted_password: <%= Devise::Encryptor.digest(Customer, 'password') %>
   first_name: Customer
   last_name: One
-  email: customer_one@opensourcesociety.com
+  email: customer_one@cociety.org
   confirmed_at: <%= Time.zone.now - 1.hour %>
   confirmation_sent_at: <%= Time.zone.now - 2.hours %>
 
@@ -12,7 +12,7 @@ two:
   encrypted_password: <%= Devise::Encryptor.digest(Customer, 'password') %>
   first_name: Customer
   last_name: Two
-  email: customer_two@opensourcesociety.com
+  email: customer_two@cociety.org
   confirmed_at: <%= Time.zone.now - 1.hour %>
   confirmation_sent_at: <%= Time.zone.now - 2.hours %>
 
@@ -20,7 +20,7 @@ three:
   encrypted_password: <%= Devise::Encryptor.digest(Customer, 'password') %>
   first_name: Customer
   last_name: Three
-  email: customer_three@opensourcesociety.com
+  email: customer_three@cociety.org
   confirmed_at: <%= Time.zone.now - 1.hour %>
   confirmation_sent_at: <%= Time.zone.now - 2.hours %>
 
@@ -28,6 +28,6 @@ four:
   encrypted_password: <%= Devise::Encryptor.digest(Customer, 'password') %>
   first_name: Customer
   last_name: Four
-  email: customer_four@opensourcesociety.com
+  email: customer_four@cociety.org
   confirmed_at: <%= Time.zone.now - 1.hour %>
   confirmation_sent_at: <%= Time.zone.now - 2.hours %>

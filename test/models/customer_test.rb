@@ -3,12 +3,12 @@ require 'test_helper'
 class CustomerTest < ActiveSupport::TestCase
   test 'finds a customer by email' do
     expected_customer_id = customers(:one).id
-    actual_customer_id = Customer.find_by_email('customer_one@opensourcesociety.com').id
+    actual_customer_id = Customer.find_by_email('customer_one@cociety.org').id
     assert_equal expected_customer_id, actual_customer_id
   end
 
   test "strips whitespace from customer's name before saving" do
-    c = Customer.new(first_name: ' has spaces ', last_name: ' customersLastName ', password: 'secret', email: 'customersLastName@opensourcesociety.com')
+    c = Customer.new(first_name: ' has spaces ', last_name: ' customersLastName ', password: 'secret', email: 'customersLastName@cociety.org')
     c.save!
     assert_equal 'has spaces', c.first_name
     assert_equal 'customersLastName', c.last_name
@@ -32,7 +32,7 @@ class CustomerTest < ActiveSupport::TestCase
       Customer.new(password: 'test123', first_name: 'Melissa', last_name: 'Galush').save!
     end
 
-    assert Customer.new(password: 'test123', first_name: 'Melissa', last_name: 'Galush', email: 'mgalush@opensourcesociety.com').save!
+    assert Customer.new(password: 'test123', first_name: 'Melissa', last_name: 'Galush', email: 'mgalush@cociety.org').save!
   end
 
   test 'finds a customer by stripe id' do

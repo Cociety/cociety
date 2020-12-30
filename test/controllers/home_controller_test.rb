@@ -8,7 +8,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
   test 'should get home page' do
     get root_path
     assert_response :success
-    assert_select 'title', 'Open Source Society'
+    assert_select 'title', 'Cociety'
   end
 
   test 'should show the nav bar with signup and login buttons when logged out' do

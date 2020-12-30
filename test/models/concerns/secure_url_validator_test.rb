@@ -8,7 +8,7 @@ end
 
 class SecureUrlValidatorTest < ActiveSupport::TestCase
   test 'validates a url' do
-    model = Validatable.new 'https://www.opensourcesociety.com'
+    model = Validatable.new 'https://www.cociety.org'
     assert model.valid?
     assert_empty model.errors
   end
@@ -26,7 +26,7 @@ class SecureUrlValidatorTest < ActiveSupport::TestCase
   end
 
   test 'requires https url' do
-    model = Validatable.new 'http://www.opensourcesociety.com'
+    model = Validatable.new 'http://www.cociety.org'
     assert_not model.valid?
     assert_not_empty model.errors
   end

@@ -8,7 +8,7 @@ class CustomerTest < ActiveSupport::TestCase
   test 'creates a Stripe customer' do
     stripe_customer = StripeHelper::Customer.create(@customer)
     assert_equal 'Customer One', stripe_customer.name
-    assert_equal 'customer_one@opensourcesociety.com', stripe_customer.email
+    assert_equal 'customer_one@cociety.org', stripe_customer.email
     assert_equal @customer.id, stripe_customer.metadata['customer_id']
   end
 
