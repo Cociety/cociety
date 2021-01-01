@@ -1,9 +1,9 @@
-<div x-data="{ show: true }" x-show="show" class="toast">
-  <div class="bg-<%= color %>-100 flex rounded-md p-4 max-w-sm toastss">
-    <div class="flex-shrink-0 text-<%= color %>-400">
+<div x-data="{ show: true }" x-show="show" class="flex justify-center">
+  <div class="<%= bg_color %> flex rounded-md p-4 max-w-sm">
+    <div class="flex-shrink-0 <%= icon_color %>">
       <%= render icon, size: 5 %>
     </div>
-    <div class="ml-3 text-sm font-medium text-<%= color %>-800">
+    <div class="ml-3 text-sm font-medium <%= text_color %>">
       <% if message.kind_of?(Array) %>
           <% if message.size == 1 %>
             <p><%= message.first %></p>
@@ -20,7 +20,7 @@
     </div>
     <div class="ml-auto pl-3">
       <div class="-mx-1.5 -my-1.5">
-        <button @click="show = false" class="inline-flex bg-<%= color %>-100 rounded-md p-1.5 text-<%= color %>-500 hover:bg-<%= color %>-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-<%= color %>-50 focus:ring-<%= color %>-600">
+        <button @click="show = false" class="<%= close_classes %> inline-flex rounded-md p-1.5 focus:outline-none focus:ring-2 focus:ring-offset-2">
           <span class="sr-only"><%= t '.dismiss' %></span>
           <%= render 'svg/x', size: 5 %>
         </button>
