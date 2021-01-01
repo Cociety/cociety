@@ -11,7 +11,6 @@
       <% payment_allocations.each do |p| %>
         <% if p.percent.nonzero? %>
           <div class="flex flex-col first:rounded-l-lg last:rounded-r-lg shadow h-16 items-center justify-center <%= colors.shift %> text-sm font-medium text-gray-100" style="width: <%= p.percent %>%">
-            <span class="leading-8 truncate overflow-ellipsis"><%= p.percent %>%</span>
           </div>
         <% end %>
       <% end %>
