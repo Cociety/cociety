@@ -23,7 +23,17 @@ class Customer < ApplicationRecord
   end
 
   def payment_allocations
-    payment_allocation_sets&.last&.payment_allocations || []
+    payment_allocation_sets&.first&.payment_allocations || []
+  end
+
+  def payment_allocations_for_all_organizations
+    p = payment_allocations
+    o_donated_to = p.map(&:organization_id)
+    o_not_donated_to = Organization.where.not(id: o_donated_to)
+    o_not_donated_to.each do |o|
+      p.push PaymentAllocation.new(percent: 0, organization: o)
+    end
+    p
   end
 
   def current_tier

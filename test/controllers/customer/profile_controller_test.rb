@@ -38,8 +38,10 @@ class Customer::ProfileControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p', { count: 1, text: 'tutoring for kiddos' }
   end
 
-  test 'should show donation edit button' do
+  test 'should have a save donations form' do
     get customer_profile_index_path
-    assert_select "a[href='#{customer_payment_allocations_path}']", { count: 1, text: 'Edit' }
+    assert_select "form[action*='#{customer_payment_allocations_path}']" do
+      assert_select 'input[type=submit][value=Save]'
+    end
   end
 end

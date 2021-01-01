@@ -1,0 +1,14 @@
+<div class="fixed top-24 w-full">
+<% if notice %>
+  <%= render 'application/toast',
+    message: notice,
+    color:   'green',
+    icon:    'svg/check_circle'%>
+<% end %>
+<% if alert %>
+  <%= render 'application/toast',
+    message: alert,
+    color:   'red',
+    icon:    'svg/check_x' %>
+<% end %>
+</div>
