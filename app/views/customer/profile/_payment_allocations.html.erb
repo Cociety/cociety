@@ -10,7 +10,7 @@
       <% colors = %w(bg-indigo-600 bg-pink-600 bg-green-500 bg-red-500 bg-yellow-500 bg-blue-600) %>
       <% payment_allocations.each do |p| %>
         <% if p.percent.nonzero? %>
-          <div class="flex flex-col first:rounded-l-lg last:rounded-r-lg shadow h-16 items-center justify-center <%= colors.shift %> text-sm font-medium text-gray-100" style="width: <%= p.percent %>%">
+          <div class="flex flex-col first:rounded-l-md last:rounded-r-md shadow h-4 items-center justify-center <%= colors.shift %> text-sm font-medium text-gray-100" style="width: <%= p.percent %>%">
           </div>
         <% end %>
       <% end %>
