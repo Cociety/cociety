@@ -5,24 +5,13 @@
 <% if payment_allocations.empty? %>
   <%= t '.none' %>
 <% else %>
-  <div class="hidden lg:flex my-4">
+  <div class="flex my-4">
     <% colors = %w(bg-indigo-600 bg-pink-600 bg-green-500 bg-red-500 bg-yellow-500 bg-blue-600) %>
     <% payment_allocations.each do |p| %>
       <% if p.percent.nonzero? %>
         <div class="flex flex-col first:rounded-l-lg last:rounded-r-lg shadow h-16 text-center <%= colors.shift %> text-sm font-medium text-gray-100" style="width: <%= p.percent %>%">
           <span class="leading-8 truncate overflow-ellipsis"><%= p.organization.name %></span>
           <span class="leading-8 truncate overflow-ellipsis"><%= p.percent %>%</span>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-  <div class="flex my-4 flex-col h-96 lg:hidden">
-    <% colors = %w(bg-indigo-600 bg-pink-600 bg-green-500 bg-red-500 bg-yellow-500 bg-blue-600) %>
-    <% payment_allocations.each do |p| %>
-      <% if p.percent.nonzero? %>
-        <div class="first:rounded-t-lg last:rounded-b-lg <%= colors.shift %> text-sm font-medium text-gray-100 grid p-4 grid-cols-12 justify-center items-center" style="height: <%= p.percent %>%">
-          <span class="leading-8 truncate overflow-ellipsis col-span-11"><%= p.organization.name %></span>
-          <span class="leading-8 truncate overflow-ellipsis col-span-1"><%= p.percent %>%</span>
         </div>
       <% end %>
     <% end %>
