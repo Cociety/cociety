@@ -14,13 +14,13 @@
       <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg overflow-hidden">
         <div class="bg-white">
           <%= link_to customer_profile_index_path, :class => 'inline-flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-200' do %>
-            <%= render 'svg/identification', size:4 %>
+            <%= render 'svg/identification', w: 'w-4', h: 'h-4' %>
             <%= t '.profile' %>
           <% end %>
         </div>
         <div class="bg-white">
           <%= link_to destroy_customer_session_path, method: :delete, :class => 'inline-flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-200' do %>
-            <%= render 'svg/sign-out', size:4 %>
+            <%= render 'svg/sign-out', w: 'w-4', h: 'h-4' %>
             <%= t 'auth.sign_out' %>
           <% end %>
         </div>
@@ -29,11 +29,11 @@
   </div>
 <% else %>
   <%= link_to new_customer_registration_path, :class => 'btn btn-primary' do %>
-    <%= render 'svg/customer', size:4 %>
+    <%= render 'svg/customer', w: 'w-4', h: 'h-4' %>
     <%= t 'auth.sign_up' %>
   <% end %>
   <%= link_to new_customer_session_path, :class => 'btn btn-secondary' do %>
-    <%= render 'svg/login', size:4 %>
+    <%= render 'svg/login', w: 'w-4', h: 'h-4' %>
     <%= t 'auth.login' %>
   <% end %>
 <% end %>

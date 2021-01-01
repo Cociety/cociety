@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   authenticate :customer do
     namespace :customer do
       resources :profile
-      resources :payment_allocations, only: %i[index create]
+      resources :payment_allocations, only: %i[create]
     end
   end
   defaults format: :json do

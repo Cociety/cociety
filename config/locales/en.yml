@@ -34,6 +34,10 @@ en:
       nav:
         customer:
           profile: Profile
+      toast:
+        dismiss: Dismiss
+  payment_allocations_updated: Donations updated. Thanks for the help!
+  payment_percentages_must_sum_to_100: Percentages must add to 100
   auth:
     forgot_pwd?: Forgot your password?
     login: Login
@@ -52,16 +56,18 @@ en:
         where_dontations_going?: Where are my donations going?
       payment_allocations:
         none: You haven't set that up yet. How about now?
-  edit: Edit
   helpers:
     label:
       customer:
         email: Email
         name: Full name
+        first_name: First name
+        last_name: Last name
         password: Password
         password_min: Password (%{min} characters minimum)
         password_confirmation: Password Confirmation
         remember_me: Remember me?
+      percent_to: Percent to %{organization}
   home:
     hero:
       tech_works_for_you_html: Tech that <span class="text-indigo-600">works for you</span>
@@ -80,7 +86,7 @@ en:
       stay_in_the_know: Stay in the know
       where_your_money_goes: Want to see how much you've helped? We do too. You can see where your money is going at any time
       tech_for_you: Tech for you
-      humanely_designed: Ethical and humanely designed software to enrich your life, not extract it.
+      humanely_designed: Ethically and humanely designed software to enrich your life, not extract it.
       youre_first: You're first
       no_ads: We value customer experience. That means no ads, no tracking, no tricks to keep you sucked in.
       your_data: It's your data

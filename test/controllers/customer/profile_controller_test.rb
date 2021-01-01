@@ -29,17 +29,19 @@ class Customer::ProfileControllerTest < ActionDispatch::IntegrationTest
     get customer_profile_index_path
     assert_select 'h2', { count: 1, text: 'Where are my donations going?' }
 
-    assert_select 'p', { count: 1, text: 'Health Planet' }
-    assert_select 'a', { count: 1, text: 'https://www.healthplanet.abc' }
+    assert_select 'label', { count: 1, text: 'Percent to Health Planet' }
+    assert_select 'a[href="https://www.healthplanet.abc"]'
     assert_select 'p', { count: 1, text: 'worldwide fitness' }
 
-    assert_select 'p', { count: 1, text: "A's for Days" }
-    assert_select 'a', { count: 1, text: 'https://as4days.abc' }
+    assert_select 'label', { count: 1, text: "Percent to A's for Days" }
+    assert_select 'a[href="https://as4days.abc"]'
     assert_select 'p', { count: 1, text: 'tutoring for kiddos' }
   end
 
-  test 'should show donation edit button' do
+  test 'should have a save donations form' do
     get customer_profile_index_path
-    assert_select "a[href='#{customer_payment_allocations_path}']", { count: 1, text: 'Edit' }
+    assert_select "form[action*='#{customer_payment_allocations_path}']" do
+      assert_select 'button[type=submit]', { count: 1, text: 'Save' }
+    end
   end
 end

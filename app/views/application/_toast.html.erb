@@ -1,6 +1,39 @@
-<% if notice %>
-  <p class="alert alert-success"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-danger"><%= alert %></p>
-<% end %>
+<div x-data="{ show: false }"
+  x-show="show"
+  x-init="setTimeout(() => { show = true }, 0); setTimeout(() => { show = false }, 5000)"
+  x-transition:enter="transition ease-out duration-300"
+  x-transition:enter-start="opacity-0 transform scale-90"
+  x-transition:enter-end="opacity-100 transform scale-100"
+  x-transition:leave="transition ease-in duration-300"
+  x-transition:leave-start="opacity-100 transform scale-100"
+  x-transition:leave-end="opacity-0 transform scale-90"
+  class="flex justify-center">
+  <div class="<%= bg_color %> flex rounded-md p-4 max-w-sm">
+    <div class="flex-shrink-0 <%= icon_color %>">
+      <%= render icon, w: 'w-5', h: 'h-5' %>
+    </div>
+    <div class="ml-3 text-sm font-medium <%= text_color %>">
+      <% if message.kind_of?(Array) %>
+          <% if message.size == 1 %>
+            <p><%= message.first %></p>
+          <% else %>
+            <ul class="list-disc pl-5 space-y-1">
+              <% message.each do |m| %>
+                <li><%= m %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        <% else %>
+          <p><%= message %></p>
+        <% end %>
+    </div>
+    <div class="ml-auto pl-3">
+      <div class="-mx-1.5 -my-1.5">
+        <button @click="show = false" class="<%= close_classes %> inline-flex rounded-md p-1.5 focus:outline-none focus:ring-2 focus:ring-offset-2">
+          <span class="sr-only"><%= t '.dismiss' %></span>
+          <%= render 'svg/x', w: 'w-5', h: 'h-5' %>
+        </button>
+      </div>
+    </div>
+  </div>
+  </div>

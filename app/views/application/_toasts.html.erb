@@ -1,0 +1,22 @@
+<div class="fixed top-24 w-full z-50">
+  <% if notice %>
+    <%= render 'application/toast',
+      message:       notice,
+      bg_color:      'bg-green-100',
+      close_classes: 'bg-green-100 hover:bg-green-200 text-green-500 focus:ring-offset-green-50 focus:ring-green-600',
+      icon:          'svg/check_circle',
+      icon_color:    'text-green-400',
+      text_color:    'text-green-800'
+    %>
+  <% end %>
+  <% if alert %>
+    <%= render 'application/toast',
+      message:       alert,
+      bg_color:      'bg-red-100',
+      close_classes: 'bg-red-100 hover:bg-red-200 text-red-500 focus:ring-offset-red-50 focus:ring-red-600',
+      icon:          'svg/check_x',
+      icon_color:    'text-red-400',
+      text_color:    'text-red-800'
+    %>
+  <% end %>
+</div>

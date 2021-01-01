@@ -1,7 +1,7 @@
 <%= link_to organization.url do %>
   <% if organization.logo.present? %>
-    <div class="h-8 w-full lg:w-32 hover:bg-gray-200">
-      <%= image_tag(organization.logo, class: "object-contain h-full block m-auto", alt: organization.name) %>
+    <div class="w-40 lg:h-8 lg:w-32">
+      <%= image_tag(organization.logo, class: "object-contain block m-auto", alt: organization.name) %>
     </div>
   <% else %>
     <span class="inline-flex items-center justify-center h-8 w-8 rounded-full %">
