@@ -27,31 +27,30 @@
       <% end %>
     <% end %>
   </div>
-  <ul class="divide-y divide-gray-200">
-    <% colors = %w(bg-indigo-600 bg-pink-600 bg-green-500 bg-red-500 bg-yellow-500 bg-blue-600) %>
-    <%= form_with url: customer_payment_allocations_url do |f| %>
-      <% payment_allocations.each do |p| %>
-        <li class="py-4 flex flex-col lg:flex-row lg:items-center space-y-3 lg:space-y-0 lg:space-x-3">
-          <div class="<%= colors.shift unless p.percent.zero? %> h-6 w-full lg:w-6 rounded-full flex-shrink-0"></div>
-          <div class="flex items-center space-x-3">
-            <div>
-              <%= render "organization/avatar", organization: p.organization %>
-            </div>
-            <div class="flex-grow lg:w-64 lg:truncate">
-              <%= f.hidden_field 'payment_allocations[][organization_id]', value: p.organization.id %>
-              <%= f.label 'payment_allocations[][percent]', t("helpers.label.percent_to", organization: p.organization.name), class: 'block text-sm font-medium text-gray-700 whitespace-normal' %>
-              <div class="mt-1 relative rounded-md shadow-sm w-full lg:w-20">
-                <%= f.number_field 'payment_allocations[][percent]', value: p.percent, min: 0, max: 100, class: 'focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-6 sm:text-sm border-gray-300 rounded-md' %>
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <span class="text-gray-500 sm:text-sm">%</span>
+  <%= form_with url: customer_payment_allocations_url do |f| %>
+    <ul class="space-y-3">
+        <% colors = %w(border-indigo-600 bg-indigo-50 border-pink-600 bg-pink-50 border-green-500 bg-green-50 border-red-500 bg-red-50 border-yellow-500 bg-yellow-50 border-blue-600 bg-blue-100) %>
+        <% payment_allocations.each do |p| %>
+          <li class="p-4 flex flex-col lg:flex-row lg:items-center lg:space-x-3 rounded-lg border lg:border-2 <%= colors.shift %> <%= colors.shift %>">
+            <div class="flex items-center space-x-3">
+              <div>
+                <%= render "organization/avatar", organization: p.organization %>
+              </div>
+              <div class="flex-grow lg:w-64 lg:truncate">
+                <%= f.hidden_field 'payment_allocations[][organization_id]', value: p.organization.id %>
+                <%= f.label 'payment_allocations[][percent]', t("helpers.label.percent_to", organization: p.organization.name), class: 'block text-sm font-medium text-gray-700 whitespace-normal' %>
+                <div class="mt-1 relative rounded-md shadow-sm w-full lg:w-20">
+                  <%= f.number_field 'payment_allocations[][percent]', value: p.percent, min: 0, max: 100, class: 'focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-6 sm:text-sm border-gray-300 rounded-md' %>
+                  <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                    <span class="text-gray-500 sm:text-sm">%</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <p><%= p.organization.description %></p>
-        </li>
-      <% end %>
-      <%= f.button type: :submit, class: "btn btn-secondary btn-center w-full lg:w-auto" %>
-    <% end %>
-  </ul>
+            <p><%= p.organization.description %></p>
+          </li>
+        <% end %>
+        <%= f.button type: :submit, class: "btn btn-secondary btn-center w-full lg:w-auto" %>
+    </ul>
+  <% end %>
 <% end %>
