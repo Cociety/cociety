@@ -67,7 +67,7 @@ en:
         password_min: Password (%{min} characters minimum)
         password_confirmation: Password Confirmation
         remember_me: Remember me?
-      payment_allocations[][percent]: Percent of donation
+      percent_to: Percent to %{organization}
   home:
     hero:
       tech_works_for_you_html: Tech that <span class="text-indigo-600">works for you</span>
