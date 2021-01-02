@@ -1,0 +1,27 @@
+<div>
+  <% label_class = "block text-sm font-medium text-gray-700" %>
+  <% input_class = "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+  <%= form_with url: customer_profile_url(current_customer), method: :put do |f| %>
+    <div class="mb-8 lg:grid lg:grid-cols-12 lg:gap-x-5">
+      <div class="col-span-4 gap-6">
+        <%= f.label 'customer[first_name]', t('helpers.label.customer.first_name'), class: label_class %>
+        <div class="mt-1">
+          <%= f.text_field 'customer[first_name]', autocomplete: "given-name", class: input_class, value: current_customer.name.first %>
+        </div>
+      </div>
+      <div class="col-span-4 gap-6">
+        <%= f.label 'customer[last_name]', t('helpers.label.customer.last_name'), class: label_class %>
+        <div class="mt-1">
+          <%= f.text_field 'customer[last_name]', autocomplete: "family-name", class: input_class, value: current_customer.name.last %>
+        </div>
+      </div>
+      <div class="col-span-4 gap-6">
+        <%= f.label 'customer[email]', t('helpers.label.customer.email'), class: label_class %>
+        <div class="mt-1">
+          <%= f.email_field 'customer[email]', autocomplete: "email", class: input_class, value: current_customer.email %>
+        </div>
+      </div>
+    </div>
+    <%= f.button type: :submit, class: "btn btn-secondary btn-center w-full lg:w-auto" %>
+  <% end %>
+</div>

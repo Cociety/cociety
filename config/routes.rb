@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'home#index'
   authenticate :customer do
     namespace :customer do
-      resources :profile
+      resources :profile, only: %i[index update]
       resources :payment_allocations, only: %i[create]
     end
   end

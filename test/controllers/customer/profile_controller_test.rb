@@ -25,6 +25,13 @@ class Customer::ProfileControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[value='#{@customer.email}']"
   end
 
+  test 'should have a save profile button' do
+    get customer_profile_index_path
+    assert_select "form[action*='#{customer_profile_url(@customer)}']" do
+      assert_select 'button[type=submit]', { count: 1, text: 'Save' }
+    end
+  end
+
   test 'should show donation information' do
     get customer_profile_index_path
     assert_select 'h2', { count: 1, text: 'Where are my donations going?' }
@@ -43,5 +50,18 @@ class Customer::ProfileControllerTest < ActionDispatch::IntegrationTest
     assert_select "form[action*='#{customer_payment_allocations_path}']" do
       assert_select 'button[type=submit]', { count: 1, text: 'Save' }
     end
+  end
+
+  test 'should save customer profile' do
+    assert_not_equal 'new first name', customers(:one).first_name
+    put customer_profile_url(@customer), params: { customer: { first_name: 'new first name' }}
+    assert_equal 'new first name', customers(:one).first_name
+    assert_equal 'Profile Updated!', flash[:notice]
+  end
+
+  test 'should show a different message when updating email' do
+    put customer_profile_url(@customer), params: { customer: { email: 'new_email_for_customer_one@cociety.org' }}
+    assert_equal 'new_email_for_customer_one@cociety.org', customers(:one).unconfirmed_email
+    assert_equal 'Profile Updated! Check your email to confirm your new address.', flash[:notice]
   end
 end

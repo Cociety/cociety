@@ -1,35 +1,14 @@
 <div class="w-full h-full px-1 md:px-10">
   <div class="space-y-6 pt-6">
     <%= render "customer/profile/section" do %>
-      <h2 class="text-xl"><%= t '.details' %></h2>
-      <div>
-        <% label_class = "block text-sm font-medium text-gray-700" %>
-        <% input_class = "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
-        <%= form_for(current_customer, url: "#", html:{class:"space-y-6 mb-8 lg:grid lg:grid-cols-12 lg:gap-x-5"} ) do |f| %>
-          <div class="col-span-4 gap-6">
-            <%= f.label :first_name, class: label_class %>
-            <div class="mt-1">
-              <%= f.text_field :name, autocomplete: "given-name", class: input_class, value: current_customer.name.first %>
-            </div>
-          </div>
-          <div class="col-span-4 gap-6">
-            <%= f.label :last_name, class: label_class %>
-            <div class="mt-1">
-              <%= f.text_field :name, autocomplete: "family-name", class: input_class, value: current_customer.name.last %>
-            </div>
-          </div>
-          <div class="col-span-4 gap-6">
-            <%= f.label :email, class: label_class %>
-            <div class="mt-1">
-              <%= f.email_field :email, autocomplete: "email", class: input_class, value: current_customer.email %>
-            </div>
-          </div>
-        <% end %>
+      <div class="flex justify-between mb-4">
+        <h2 class="text-xl"><%= t '.details' %></h2>
       </div>
+      <%= render "customer/profile/details" %>
     <% end %>
     <%= render "customer/profile/section" do %>
-      <div class="flex justify-between">
-        <h2 class="text-xl"><%= t '.where_dontations_going?' %></h2>
+      <div class="flex justify-between mb-4">
+        <h2 class="text-xl"><%= t '.where_donations_going?' %></h2>
       </div>
       <%= render "customer/profile/payment_allocations", payment_allocations: current_customer.payment_allocations_for_all_organizations %>
     <% end %>

@@ -5,7 +5,7 @@
 <% if payment_allocations.empty? %>
   <%= t '.none' %>
 <% else %>
-  <div class="my-4">
+  <div class="mb-4">
     <div class="flex">
       <% colors = %w(bg-indigo-600 bg-pink-600 bg-green-500 bg-red-500 bg-yellow-500 bg-blue-600) %>
       <% payment_allocations.each do |p| %>
@@ -38,7 +38,7 @@
               </div>
               <div class="flex-grow lg:w-64 lg:truncate">
                 <%= f.hidden_field 'payment_allocations[][organization_id]', value: p.organization.id %>
-                <%= f.label 'payment_allocations[][percent]', t("helpers.label.percent_to", organization: p.organization.name), class: 'block text-sm font-medium text-gray-700 whitespace-normal' %>
+                <%= f.label 'payment_allocations[][percent]', t('.percent_to', organization: p.organization.name), class: 'block text-sm font-medium text-gray-700 whitespace-normal' %>
                 <div class="mt-1 relative rounded-md shadow-sm w-full lg:w-20">
                   <%= f.number_field 'payment_allocations[][percent]', value: p.percent, min: 0, max: 100, inputmode: :numeric, class: 'focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-6 sm:text-sm border-gray-300 rounded-md' %>
                   <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
