@@ -17,19 +17,23 @@ class Customer::ProfileControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_customer_session_path
   end
 
-  test 'should show basic customer details' do
+  test 'should show a customer profile' do
     get customer_profile_index_path
     assert_select 'h2', { count: 1, text: 'Basic details' }
-    assert_select "input[value='#{@customer.first_name}']"
-    assert_select "input[value='#{@customer.last_name}']"
-    assert_select "input[value='#{@customer.email}']"
+    assert_select "#{profile_form} input[value='#{@customer.first_name}']"
+    assert_select "#{profile_form} input[value='#{@customer.last_name}']"
+    assert_select "#{profile_form} input[value='#{@customer.email}']"
+  end
+
+  test 'should have an avatar uploader' do
+    get customer_profile_index_path
+    assert_select 'label[for="customer\[avatar\]"]', { count: 1, text: 'Choose Photo' }
+    assert_select 'input[name="customer\[avatar\]"]'
   end
 
   test 'should have a save profile button' do
     get customer_profile_index_path
-    assert_select "form[action*='#{customer_profile_url(@customer)}']" do
-      assert_select 'button[type=submit]', { count: 1, text: 'Save' }
-    end
+    assert_select "#{profile_form} button[type=submit]", { count: 1, text: 'Save' }
   end
 
   test 'should show donation information' do
@@ -54,14 +58,39 @@ class Customer::ProfileControllerTest < ActionDispatch::IntegrationTest
 
   test 'should save customer profile' do
     assert_not_equal 'new first name', customers(:one).first_name
-    put customer_profile_url(@customer), params: { customer: { first_name: 'new first name' }}
+    put customer_profile_url(@customer), params: { customer: { first_name: 'new first name' } }
     assert_equal 'new first name', customers(:one).first_name
     assert_equal 'Profile Updated!', flash[:notice]
   end
 
   test 'should show a different message when updating email' do
-    put customer_profile_url(@customer), params: { customer: { email: 'new_email_for_customer_one@cociety.org' }}
+    put customer_profile_url(@customer), params: { customer: { email: 'new_email_for_customer_one@cociety.org' } }
     assert_equal 'new_email_for_customer_one@cociety.org', customers(:one).unconfirmed_email
     assert_equal 'Profile Updated! Check your email to confirm your new address.', flash[:notice]
+  end
+
+  test 'should update customer avatar' do
+    get customer_profile_index_path
+    assert_select profile_form do
+      assert_select 'span', count: 1, text: 'CO'
+      assert_select "img[alt='#{@customer.name}']", count: 0
+    end
+
+    image = fixture_file_upload 'images/arya.jpg'
+    assert_changes -> { ActiveStorage::Attachment.count } do
+      put customer_profile_url(@customer), params: { customer: { avatar: image } }
+    end
+
+    get customer_profile_index_path
+    assert_select profile_form do
+      assert_select 'span', count: 0, text: 'CO'
+      assert_select "img[alt='#{@customer.name}']", count: 1
+    end
+  end
+
+  private
+
+  def profile_form
+    "form[action*='#{customer_profile_url(@customer)}']"
   end
 end

@@ -5,7 +5,11 @@ module.exports = {
   },
   purge: ['./app/views/**/*.html.erb'],
   theme: {
-    extend: {},
+    extend: {
+      zIndex: {
+        '-1': -1
+      }
+    },
   },
   variants: {
     extend: {

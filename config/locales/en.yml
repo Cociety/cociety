@@ -51,6 +51,9 @@ en:
       sign_up_for_account: Sign up for an account
   customer:
     profile:
+      details:
+        choose_photo: Choose Photo
+        photo: Photo
       update:
         success: Profile Updated!
         email_success: Profile Updated! Check your email to confirm your new address.

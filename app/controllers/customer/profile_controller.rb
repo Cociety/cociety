@@ -13,7 +13,7 @@ class Customer::ProfileController < ApplicationController
   private
 
   def customer_params
-    params.require(:customer).permit(:first_name, :last_name, :email)
+    params.require(:customer).permit(:first_name, :last_name, :email, :avatar)
   end
 
   def set_pending_reconfirmation_before_action

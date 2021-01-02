@@ -2,6 +2,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
 require 'sidekiq/testing'
+require 'support/remove_uploaded_files'
 require 'support/sidekiq_helper'
 require 'support/stripe_support'
 

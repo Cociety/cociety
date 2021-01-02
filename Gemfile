@@ -71,3 +71,7 @@ gem "money-rails", "~> 1.13"
 gem "devise", "~> 4.7"
 
 gem "name_of_person", "~> 1.1"
+
+gem "aws-sdk-s3", "~> 1.87"
+
+gem "image_processing", "~> 1.12"

@@ -12,6 +12,7 @@ class Customer < ApplicationRecord
   has_many :external_entities, as: :internal_entity
   has_many :payment_allocation_sets, autosave: true
   has_many :customer_tiers
+  has_one_attached :avatar
   has_person_name
 
   def first_name=(f_name)

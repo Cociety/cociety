@@ -1,7 +1,7 @@
 <div>
   <% label_class = "block text-sm font-medium text-gray-700" %>
   <% input_class = "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
-  <%= form_with url: customer_profile_url(current_customer), method: :put do |f| %>
+  <%= form_with url: customer_profile_url(current_customer), method: :put, multipart: true do |f| %>
     <div class="mb-8 lg:grid lg:grid-cols-12 lg:gap-x-5">
       <div class="col-span-4 gap-6">
         <%= f.label 'customer[first_name]', t('helpers.label.customer.first_name'), class: label_class %>
@@ -21,7 +21,19 @@
           <%= f.email_field 'customer[email]', autocomplete: "email", class: input_class, value: current_customer.email %>
         </div>
       </div>
+      <div class="mt-4 col-span-4">
+        <label class="block text-sm font-medium text-gray-700">
+          <%= t '.photo' %>
+        </label>
+        <div class="mt-2 flex items-center">
+          <%= render 'customer/avatar' %>
+          <div class="ml-2" x-data="{}">
+            <%= f.label 'customer[avatar]', t('.choose_photo'), class: 'btn btn-secondary', 'x-ref':'fileLabel' %>
+            <%= f.file_field 'customer[avatar]', class: 'opactity-0 w-1 h-1 overflow-hidden absolute -z-1', '@change': 'fileChangeHandler($event.target, $refs.fileLabel)' %>
+          </div>
+        </div>
+      </div>
     </div>
-    <%= f.button type: :submit, class: "btn btn-secondary btn-center w-full lg:w-auto" %>
+    <%= f.button type: :submit, class: "btn btn-primary btn-center w-full lg:w-auto" %>
   <% end %>
 </div>
