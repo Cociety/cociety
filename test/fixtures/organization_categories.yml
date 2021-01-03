@@ -2,3 +2,5 @@ health:
   category: Health
 education:
   category: Education
+civil_rights:
+  category: Civil Rights

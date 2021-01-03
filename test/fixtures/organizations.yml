@@ -15,3 +15,9 @@ two:
   name: A's for Days
   url: https://as4days.abc
   description: tutoring for kiddos
+
+three:
+  organization_categories: civil_rights
+  name: Back of the Bus
+  url: https://rosa.parks
+  description: we're all human

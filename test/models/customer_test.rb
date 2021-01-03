@@ -48,4 +48,12 @@ class CustomerTest < ActiveSupport::TestCase
   test "gets a customer's current tier" do
     assert_equal customer_tiers(:one_current).id, customers(:one).current_tier.id
   end
+
+  test 'splits payment allocations evenly between all organizations on sign up' do
+    c = Customer.new(password: 'test123', first_name: 'Melissa', last_name: 'Galush', email: 'something_new@cociety.org')
+    c.save
+    assert c.payment_allocations.size == Organization.count
+    percents = c.payment_allocations.map(&:percent)
+    assert (percents.max - percents.min).between?(0, 1)
+  end
 end
