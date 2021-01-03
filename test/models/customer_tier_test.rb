@@ -7,7 +7,7 @@ class CustomerTierTest < ActiveSupport::TestCase
 
   test 'refuses to save without a customer' do
     assert_raise ActiveRecord::RecordInvalid do
-      assert CustomerTier.new(expiration: Time.now, tier: Tier.first).save!
+      CustomerTier.new(expiration: Time.now, tier: Tier.first).save!
     end
     assert CustomerTier.new(customer: customers(:two), expiration: Time.now, tier: Tier.first).save!
   end
@@ -27,10 +27,10 @@ class CustomerTierTest < ActiveSupport::TestCase
   end
 
   test 'automatically sets effective date to now' do
-    now = Time.now
     ct = CustomerTier.new(customer: customers(:two), expiration: Time.now, tier: Tier.first)
     ct.save!
-    assert_equal now.to_i, ct.effective.to_i
+    seconds_from_now = Time.now.to_i - ct.effective.to_i
+    assert seconds_from_now.between?(0, 5)
   end
 
   test 'refuses to save a customer tier that overlaps with an existing one' do
