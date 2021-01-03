@@ -4,7 +4,8 @@ class Customer < ApplicationRecord
   # :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :confirmable, :lockable, :timeoutable, :trackable
+         :confirmable, :lockable, :timeoutable, :trackable,
+         timeout_in: 2.weeks
 
   alias_attribute :tiers, :customer_tiers
   default_scope { order(created_at: :asc) }
