@@ -1,5 +1,7 @@
 require 'active_support/core_ext/integer/time'
 
+cociety_local = 'cociety.local'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -13,6 +15,8 @@ Rails.application.configure do
 
   # Show full error reports.
   config.consider_all_requests_local = true
+
+  config.hosts << ENV.fetch('HOST', cociety_local)
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
@@ -37,7 +41,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: ENV.fetch('HOST', cociety_local), port: ENV.fetch('PORT', 3000) }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
