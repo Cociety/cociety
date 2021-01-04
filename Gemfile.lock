@@ -107,6 +107,7 @@ GEM
     ffi (1.14.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    hiredis (0.6.3)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.1)
@@ -195,6 +196,9 @@ GEM
     redis (4.2.5)
     redis-namespace (1.8.0)
       redis (>= 3.0.4)
+    redis-session-store (0.11.3)
+      actionpack (>= 3, < 7)
+      redis (>= 3, < 5)
     regexp_parser (1.8.2)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -276,6 +280,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   devise (~> 4.7)
+  hiredis (~> 0.6.3)
   image_processing (~> 1.12)
   jbuilder (~> 2.7)
   listen (~> 3.2)
@@ -287,6 +292,7 @@ DEPENDENCIES
   rails_real_favicon (~> 0.1.0)
   redis (~> 4.2)
   redis-namespace (~> 1.8)
+  redis-session-store (~> 0.11.3)
   sass-rails (>= 6)
   selenium-webdriver
   sidekiq (~> 6.1)

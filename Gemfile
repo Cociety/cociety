@@ -60,7 +60,7 @@ gem "stripe", "~> 5.28"
 
 gem "sidekiq", "~> 6.1"
 
-gem "redis", "~> 4.2"
+gem "redis", "~> 4.2", require: %w(redis redis/connection/hiredis)
 
 gem "redis-namespace", "~> 1.8"
 
@@ -75,3 +75,7 @@ gem "name_of_person", "~> 1.1"
 gem "aws-sdk-s3", "~> 1.87"
 
 gem "image_processing", "~> 1.12"
+
+gem "hiredis", "~> 0.6.3"
+
+gem "redis-session-store", "~> 0.11.3"

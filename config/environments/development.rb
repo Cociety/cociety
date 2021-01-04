@@ -78,4 +78,16 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  config.session_store :redis_session_store, {
+    key:        '_cociety_session',
+    serializer: :json,
+    domain:     :all,
+    tld_length: 2,
+    redis:      {
+      expire_after: 1.week,
+      key_prefix:   'cociety:session:',
+      url:          ENV['REDIS_URL']
+    }
+  }
 end
