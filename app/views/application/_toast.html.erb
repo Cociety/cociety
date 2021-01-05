@@ -29,7 +29,7 @@
     </div>
     <div class="ml-auto pl-3">
       <div class="-mx-1.5 -my-1.5">
-        <button @click="show = false" class="<%= close_classes %> inline-flex rounded-md p-1.5 focus:outline-none focus:ring-2 focus:ring-offset-2">
+        <button @click="show = false" class="<%= close_classes %> inline-flex rounded-md p-1.5 focus:outline-none focus:ring-2 focus:ring-offset-2 pointer-events-auto">
           <span class="sr-only"><%= t '.dismiss' %></span>
           <%= render 'svg/x', w: 'w-5', h: 'h-5' %>
         </button>
