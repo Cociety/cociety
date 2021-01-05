@@ -1,7 +1,5 @@
 require 'active_support/core_ext/integer/time'
 
-ENV['HOST'] = 'www.cociety.org'
-
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -17,6 +15,9 @@ Rails.application.configure do
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
+
+  config.host = ENV.fetch('HOST', 'www.cociety.org')
+  config.hosts << config.host
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
@@ -68,7 +69,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "open_source_society_production"
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: ENV['HOST'] }
+  config.action_mailer.default_url_options = { host: config.host }
   config.action_mailer.delivery_method = :smtp
 
   # Ignore bad email addresses and do not raise email delivery errors.
