@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
     redirect_url || root_path
   end
 
+  def after_sign_out_path_for(_resource)
+    redirect_url || root_path
+  end
+
   protected
 
   def configure_permitted_parameters
