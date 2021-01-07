@@ -24,24 +24,10 @@ class ApplicationController < ActionController::Base
   def redirect_url
     return nil unless redirect_to_param
 
-    return redirect_to_param if matches_this_domain redirect_to_param
+    return redirect_to_param if Domain.matches_second_level_of_current? redirect_to_param
 
-    Rails.logger.error "Redirect failed. #{redirect_to_param} is not in the host domain #{this_domain}"
+    Rails.logger.error "Redirect failed. #{redirect_to_param} is not in the host domain #{Domain.current}"
     nil
-  end
-
-  def matches_this_domain(url)
-    redirect_url = URI.parse url
-    redirect_url.host.ends_with? this_domain
-  rescue StandardError => e
-    Rails.logger.error e
-  end
-
-  def this_domain
-    Rails.application.config.host
-         .split('.')
-         .last(2)
-         .join('.')
   end
 
   def redirect_to_param
