@@ -29,7 +29,7 @@
           <%= render 'customer/avatar' %>
           <div class="ml-2" x-data="{}">
             <%= f.label 'customer[avatar]', t('.choose_photo'), class: 'btn btn-secondary', 'x-ref':'fileLabel' %>
-            <%= f.file_field 'customer[avatar]', class: 'opactity-0 w-1 h-1 overflow-hidden absolute -z-1', '@change': 'fileChangeHandler($event.target, $refs.fileLabel)' %>
+            <%= f.file_field 'customer[avatar]', class: 'opactity-0 w-1 h-1 overflow-hidden absolute -z-1', '@change': 'cociety.fileChangeHandler($event.target, $refs.fileLabel)' %>
           </div>
         </div>
       </div>

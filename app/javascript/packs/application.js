@@ -19,9 +19,13 @@ require("alpinejs")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-window.fileChangeHandler = function(input, label) {
-  const files = input.files;
-  if (files && files.length) {
-    label.innerText = files[0].name;
+class Cociety {
+  fileChangeHandler = function(input, label) {
+    const files = input.files;
+    if (files && files.length) {
+      label.innerText = files[0].name;
+    }
   }
-}
+};
+
+window.cociety = new Cociety();
