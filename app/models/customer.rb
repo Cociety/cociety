@@ -3,7 +3,7 @@ class Customer < ApplicationRecord
   include PaysOut
   # Include default devise modules. Others available are:
   # :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable, :trackable,
          timeout_in: 2.weeks

@@ -23,10 +23,6 @@
         <% end %>
       </div>
     <% else %>
-      <%= link_to new_customer_registration_path, :class => 'btn btn-primary my-2 w-full' do %>
-        <%= render 'svg/customer', w: 'w-4', h: 'h-4' %>
-        <%= t 'auth.sign_up' %>
-      <% end %>
       <%= link_to new_customer_session_path, :class => 'btn btn-secondary my-2 w-full' do %>
         <%= render 'svg/login', w: 'w-4', h: 'h-4' %>
         <%= t 'auth.login' %>
