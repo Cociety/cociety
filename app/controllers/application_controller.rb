@@ -3,11 +3,13 @@ class ApplicationController < ActionController::Base
   before_action :set_redirect_url, if: :devise_controller?
 
   def after_sign_in_path_for(_resource)
-    redirect_url || root_path
+    path = redirect_url || root_path
+    reset_redirect_to
+    path
   end
 
   def after_sign_out_path_for(_resource)
-    redirect_url || root_path
+    after_sign_in_path_for _resource
   end
 
   protected
@@ -18,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_redirect_url
-    @redirect_url = redirect_url
+    cookies.encrypted[:redirect_to] = redirect_url
   end
 
   def redirect_url
@@ -31,6 +33,10 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_param
-    params[:redirect_to]
+    params[:redirect_to] || cookies.encrypted[:redirect_to]
+  end
+
+  def reset_redirect_to
+    cookies.delete(:redirect_to)
   end
 end

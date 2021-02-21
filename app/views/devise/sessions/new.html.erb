@@ -14,10 +14,6 @@
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html:{class: "space-y-6 mb-8"}) do |f| %>
             <%= render "devise/shared/error_messages", resource: resource %>
 
-            <% if @redirect_url %>
-              <%= f.hidden_field :redirect_to, name: :redirect_to, value: @redirect_url %>
-            <% end %>
-
             <div>
               <%= f.label :email, class: label_class %>
               <div class="mt-1">
