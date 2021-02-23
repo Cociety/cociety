@@ -1,0 +1,6 @@
+<%= flash[:recaptcha_error] %>
+<% if @show_checkbox_recaptcha %>
+  <%= recaptcha_tags %>
+<% else %>
+  <%= recaptcha_v3(action: 'registration', site_key: Rails.application.credentials.dig(:recaptcha, :v3, :site_key)) %>
+<% end %>

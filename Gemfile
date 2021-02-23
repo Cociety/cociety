@@ -79,3 +79,5 @@ gem "image_processing", "~> 1.12"
 gem "hiredis", "~> 0.6.3"
 
 gem "redis-session-store", "~> 0.11.3"
+
+gem "recaptcha", "~> 5.7"

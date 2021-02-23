@@ -193,6 +193,8 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    recaptcha (5.7.0)
+      json
     redis (4.2.5)
     redis-namespace (1.8.0)
       redis (>= 3.0.4)
@@ -290,6 +292,7 @@ DEPENDENCIES
   puma (~> 5.1.1)
   rails (~> 6.1.0, >= 6.1.0)
   rails_real_favicon (~> 0.1.0)
+  recaptcha (~> 5.7)
   redis (~> 4.2)
   redis-namespace (~> 1.8)
   redis-session-store (~> 0.11.3)

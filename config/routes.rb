@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :customer
+  devise_for :customer, controllers: {
+    registrations: 'customers/registrations'
+  }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'home#index'
   authenticate :customer do
