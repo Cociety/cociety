@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   devise_for :customer, controllers: {
     registrations: 'customers/registrations'
-  }
+  },
+  skip: [:registrations]
+
+  devise_scope :customer do
+    get "customer/sign_up", to: "customers/registrations#new", as: :new_customer_registration
+    post "customer/sign_up", to: "customers/registrations#create", as: :customer_registration
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'home#index'
   authenticate :customer do
