@@ -3,7 +3,17 @@ module.exports = {
     // removeDeprecatedGapUtilities: true,
     // purgeLayersByDefault: true,
   },
-  purge: ['./app/views/**/*.html.erb'],
+  purge: {
+    content: ['./app/views/**/*.html.erb'],
+    enabled: false,
+    options: {
+      safelist: [
+        'field_error',
+        'field_with_errors'
+      ],
+    },
+    preserveHtmlElements: true
+  },
   theme: {
     extend: {
       zIndex: {

@@ -19,5 +19,10 @@ module Cociety
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.autoload_paths << Rails.root.join('lib')
+
+    config.action_view.field_error_proc = proc { |html_tag, instance|
+      error_tags = html_tag.starts_with?('<input ') ? instance.full_error_messages.map { |m| "<div class=\"field_error\">#{m}</div>" }.join : ''
+      "<div class=\"field_with_errors\">#{html_tag}#{error_tags}</div>".html_safe
+    }
   end
 end
