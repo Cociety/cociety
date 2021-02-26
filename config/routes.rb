@@ -16,6 +16,9 @@ Rails.application.routes.draw do
       resources :payment_allocations, only: %i[create]
     end
   end
+  resources :customer do
+    resources :avatar, module: :customer, only: %i[index], format: :svg
+  end
   defaults format: :json do
     resources :stripe_webhooks, only: [:create]
   end

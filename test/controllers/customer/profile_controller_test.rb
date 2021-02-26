@@ -70,21 +70,10 @@ class Customer::ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update customer avatar' do
-    get customer_profile_index_path
-    assert_select profile_form do
-      assert_select 'span', count: 1, text: 'CO'
-      assert_select "img[alt='#{@customer.name}']", count: 0
-    end
-
     image = fixture_file_upload 'images/arya.jpg'
     assert_changes -> { ActiveStorage::Attachment.count } do
       put customer_profile_url(@customer), params: { customer: { avatar: image } }
-    end
-
-    get customer_profile_index_path
-    assert_select profile_form do
-      assert_select 'span', count: 0, text: 'CO'
-      assert_select "img[alt='#{@customer.name}']", count: 1
+      assert_response :redirect
     end
   end
 

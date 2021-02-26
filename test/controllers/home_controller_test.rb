@@ -32,7 +32,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
   test 'should show avatar when logged in' do
     get root_path
     assert_select 'nav' do
-      assert_select 'button', { count: 1, text: 'CO' }
+      assert_select 'img[alt="Customer One"]', { count: 2 }
     end
   end
 end

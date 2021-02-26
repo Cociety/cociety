@@ -1,7 +1,1 @@
-<% if current_customer.avatar.attached? %>
-  <%= image_tag(current_customer.avatar.variant(resize_to_limit: [100, 100]), class: "inline-block h-8 w-8 rounded-full flex-shrink-0 object-cover", alt: current_customer.name) %>
-<% else %>
-  <div class="inline-flex items-center justify-center h-8 w-8 rounded-full bg-gray-500 flex-shrink-0">
-    <span class="font-medium leading-none text-white"><%= current_customer.name.initials %></span>
-  </div>
-<% end %>
+<%= image_tag(customer_avatar_index_path(current_customer), class: "inline-block h-8 w-8 rounded-full flex-shrink-0 object-cover", alt: current_customer.name) %>
