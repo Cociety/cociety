@@ -3,7 +3,7 @@ class Customer::AvatarController < ApplicationController
 
   def index
     if @customer.avatar.attached?
-      avatar = @customer.avatar.variant(resize_to_limit: [100, 100]).processed
+      avatar = @customer.avatar.variant(resize_to_fill: [100, 100]).processed
       redirect_to url_for(avatar)
     else
       render inline: render_to_string(partial: 'customer/initials.svg', locals: { initials: @customer.name.initials }), content_type: 'image/svg+xml', disposition: :inline
