@@ -2,13 +2,13 @@
   <div class="space-y-6 pt-6">
     <%= render "customer/profile/section" do %>
       <div class="flex justify-between mb-4">
-        <h2 class="text-xl"><%= t '.details' %></h2>
+        <h2 class="text-xl"><%= t 'customer.profile.index.details' %></h2>
       </div>
       <%= render "customer/profile/details" %>
     <% end %>
     <%= render "customer/profile/section" do %>
       <div class="flex justify-between mb-4">
-        <h2 class="text-xl"><%= t '.where_donations_going?' %></h2>
+        <h2 class="text-xl"><%= t 'customer.profile.index.where_donations_going?' %></h2>
       </div>
       <%= render "customer/profile/payment_allocations", payment_allocations: current_customer.payment_allocations_for_all_organizations %>
     <% end %>
