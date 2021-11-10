@@ -75,8 +75,8 @@ en:
         remember_me: Remember me?
   home:
     hero:
-      tech_works_for_you_html: Tech that <span class="text-indigo-600">works for you</span>
-      apps_and_tools_html: Apps and tools ranging from fun social projects to collaboration tools. All ethically <span class="text-indigo-600 font-bold">designed with you in mind.</span>
+      tech_works_for_you_html: Tech that <span class="text-indigo-600">gives back</span>
+      apps_and_tools_html: Apps and tools ranging from fun social projects to collaboration tools. Profits are <span class="text-indigo-600 font-bold">donated to charities and organizations of your choice</span>
       get_started: Get started
       learn_more: Learn more
     feature:
