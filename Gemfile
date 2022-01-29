@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.0', '>= 6.1.0'
+gem 'rails', '~> 7.0.1'
 # Use PostgreSQL as the database for Active Record
 gem "pg", "~> 1.2"
 # Use Puma as the app server
@@ -68,7 +68,7 @@ gem 'stripe-ruby-mock', require: 'stripe_mock', github: 'stripe-ruby-mock/stripe
 
 gem "money-rails", "~> 1.13"
 
-gem "devise", "~> 4.7"
+gem "devise", "~> 4.8.1"
 
 gem "name_of_person", "~> 1.1"
 
@@ -78,6 +78,6 @@ gem "image_processing", "~> 1.12"
 
 gem "hiredis", "~> 0.6.3"
 
-gem "redis-session-store", "~> 0.11.3"
+gem "redis-session-store", github: 'hex-event-solutions/redis-session-store', branch: :master
 
 gem "recaptcha", "~> 5.7"

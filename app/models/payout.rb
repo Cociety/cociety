@@ -9,7 +9,7 @@ class Payout
 
   # Takes an array of customer charges and calculates how much to pay out to each organization
   def self.from_charges(charges, expenses_sum)
-    ActiveRecord::Associations::Preloader.new.preload(charges, Charge.payment_allocations_association)
+    ActiveRecord::Associations::Preloader.new(records: charges, associations: [Charge.payment_allocations_association])
     payouts = {}
     charges.each do |charge|
       add_payout! payouts, charge

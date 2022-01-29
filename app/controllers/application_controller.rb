@@ -26,9 +26,9 @@ class ApplicationController < ActionController::Base
   def redirect_url
     return nil unless redirect_to_param
 
-    return redirect_to_param if Domain.matches_second_level_of_current? redirect_to_param, request.original_url
+    return redirect_to_param if Domain.matches_second_level? redirect_to_param, request.original_url
 
-    Rails.logger.error "Redirect failed. #{redirect_to_param} is not in the host domain #{Domain.current_second_level request.original_url}"
+    Rails.logger.error "Redirect failed. #{redirect_to_param} is not in the host domain #{Domain.second_level request.original_url}"
     nil
   end
 

@@ -22,20 +22,20 @@ class Charge < ApplicationRecord
         FROM
           charges
         WHERE
-          stripe_created BETWEEN $1 and $2
+          stripe_created BETWEEN :begin and :end
         ORDER BY
           stripe_id,
           stripe_created DESC
       ) AS latest_events_per_charge
       WHERE
       refunded = false
-      and "status" = $3
+      and "status" = :status
     SQL
-    find_by_sql(query, [
-                  [nil, range.begin],
-                  [nil, range.end],
-                  [nil, Charge.statuses[:succeeded]]
-                ])
+    self.find_by_sql([query, {
+                  begin: range.begin,
+                  end: range.end,
+                  status: Charge.statuses[:succeeded]
+    }])
   end
   # rubocop:enable Metrics/MethodLength
 

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :customer, controllers: {
-    registrations: 'customers/registrations'
+    registrations: 'customers/registrations',
+    # sessions: 'customers/sessions'
   },
   skip: [:registrations]
 

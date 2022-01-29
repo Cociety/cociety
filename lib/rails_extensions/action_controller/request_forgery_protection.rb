@@ -6,7 +6,7 @@ module ActionController
       if forgery_protection_origin_check
         # We accept blank origin headers because some user agents don't send it.
         raise InvalidAuthenticityToken, NULL_ORIGIN_MESSAGE if request.origin == "null"
-        request.origin.nil? || request.origin == request.base_url || Domain.matches_second_level_of_current?(request.origin, request.original_url)
+        request.origin.nil? || request.origin == request.base_url || Domain.matches_second_level?(request.origin, request.original_url)
       else
         true
       end

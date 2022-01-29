@@ -1,15 +1,16 @@
 class Domain
-  def self.matches_second_level_of_current?(url, current)
+  def self.matches_second_level?(url, current)
     redirect_url = URI.parse url
-    redirect_url.host.ends_with? current_second_level(current)
+    redirect_url.host.ends_with? second_level(current)
   rescue StandardError => e
+    byebug
     Rails.logger.error e
   end
 
-  def self.current_second_level(current_url)
-    URI.parse(current_url).host
-         .split('.')
-         .last(2)
-         .join('.')
+  def self.second_level(url)
+    URI.parse(url).host
+                  .split('.')
+                  .last(2)
+                  .join('.')
   end
 end
