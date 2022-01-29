@@ -105,7 +105,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.session_store :redis_session_store, {
+  config.session_store :redis_session_store, **{
     key:        '_cociety_session',
     serializer: :json,
     domain:     :all,

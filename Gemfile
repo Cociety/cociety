@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.2'
+ruby '3.0.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.0', '>= 6.1.0'
@@ -56,7 +56,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "bcrypt", "~> 3.1"
 
-gem "stripe", "~> 5.28"
+gem "stripe", "~> 5.43"
 
 gem "sidekiq", "~> 6.1"
 
@@ -64,7 +64,7 @@ gem "redis", "~> 4.2", require: %w(redis redis/connection/hiredis)
 
 gem "redis-namespace", "~> 1.8"
 
-gem "stripe-ruby-mock", "~> 3.0"
+gem 'stripe-ruby-mock', require: 'stripe_mock', github: 'stripe-ruby-mock/stripe-ruby-mock', branch: :master
 
 gem "money-rails", "~> 1.13"
 

@@ -4,7 +4,7 @@ class StripeWebhooksControllerTest < ActionDispatch::IntegrationTest
   test 'saves charge succeeded events' do
     assert_difference -> { ExternalEvent.count } => 1, -> { Charge.count } => 1 do
       Sidekiq::Testing.inline! do
-        post stripe_webhooks_url, generate_body('stripe-webhook-examples/charge.succeeded.json')
+        post stripe_webhooks_url, **generate_body('stripe-webhook-examples/charge.succeeded.json')
       end
     end
   end
@@ -13,7 +13,7 @@ class StripeWebhooksControllerTest < ActionDispatch::IntegrationTest
     body = generate_body('stripe-webhook-examples/charge.refunded.json')
     assert_difference -> { ExternalEvent.count } => 1, -> { Charge.count } => 1 do
       Sidekiq::Testing.inline! do
-        post stripe_webhooks_url, body
+        post stripe_webhooks_url, **body
       end
     end
     event = Stripe::Event.construct_from(body[:params])
@@ -25,7 +25,7 @@ class StripeWebhooksControllerTest < ActionDispatch::IntegrationTest
   test 'saves any event' do
     assert_difference -> { ExternalEvent.count } => 1, -> { Charge.count } => 0 do
       Sidekiq::Testing.inline! do
-        post stripe_webhooks_url, generate_body('stripe-webhook-examples/unhandled.event.json')
+        post stripe_webhooks_url, **generate_body('stripe-webhook-examples/unhandled.event.json')
       end
     end
   end
@@ -33,7 +33,7 @@ class StripeWebhooksControllerTest < ActionDispatch::IntegrationTest
   test 'associates events with customer' do
     body = generate_body('stripe-webhook-examples/charge.refunded.json')
     Sidekiq::Testing.inline! do
-      post stripe_webhooks_url, body
+      post stripe_webhooks_url, **body
     end
     event = Stripe::Event.construct_from(body[:params])
     charge = Charge.find_by(
