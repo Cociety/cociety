@@ -3,7 +3,6 @@ class Domain
     redirect_url = URI.parse url
     redirect_url.host.ends_with? second_level(current)
   rescue StandardError => e
-    byebug
     Rails.logger.error e
   end
 
