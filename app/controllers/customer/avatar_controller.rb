@@ -6,7 +6,7 @@ class Customer::AvatarController < ApplicationController
       avatar = @customer.avatar.variant(resize_to_fill: [100, 100]).processed
       redirect_to url_for(avatar)
     else
-      render inline: render_to_string(partial: 'customer/initials.svg', locals: { initials: @customer.name.initials }), content_type: 'image/svg+xml', disposition: :inline
+      render inline: render_to_string(partial: 'customer/initials', locals: { initials: @customer.name.initials }), content_type: 'image/svg+xml', disposition: :inline
     end
   end
 
