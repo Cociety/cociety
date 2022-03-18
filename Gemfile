@@ -9,8 +9,10 @@ gem 'rails', '~> 7.0.1'
 gem "pg", "~> 1.2"
 # Use Puma as the app server
 gem 'puma', '~> 5.1.1'
-# Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
+# Bundle and process CSS [https://github.com/rails/cssbundling-rails]
+gem "cssbundling-rails"
+# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+ gem "sprockets-rails"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 5.x'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

@@ -19,5 +19,8 @@
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
   }
 }
