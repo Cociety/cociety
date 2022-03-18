@@ -21,7 +21,7 @@
         <% if p.percent.nonzero? %>
           <div class="flex items-center">
             <div class="h-2 w-2 rounded-full <%= colors.shift %>"></div>
-            <span class="pl-1 truncate overflow-ellipsis text-sm"><%= p.organization.name %></span>
+            <span class="pl-1 truncate text-ellipsis text-sm"><%= p.organization.name %></span>
           </div>
         <% end %>
       <% end %>
@@ -36,7 +36,7 @@
               <div>
                 <%= render "organization/avatar", organization: p.organization %>
               </div>
-              <div class="flex-grow lg:w-64 lg:truncate">
+              <div class="grow lg:w-64 lg:truncate">
                 <%= f.hidden_field 'payment_allocations[][organization_id]', value: p.organization.id %>
                 <%= f.label 'payment_allocations[][percent]', t('.percent_to', organization: p.organization.name), class: 'block text-sm font-medium text-gray-700 whitespace-normal' %>
                 <div class="mt-1 relative rounded-md shadow-sm w-full lg:w-20">

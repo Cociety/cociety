@@ -11,7 +11,7 @@
           <%= render "customer/avatar" %>
         </button>
       </div>
-      <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg overflow-hidden">
+      <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg overflow-hidden">
         <div class="bg-white">
           <%= link_to customer_profile_index_path, :class => 'inline-flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-200' do %>
             <%= render 'svg/identification', w: 'w-4', h: 'h-4' %>
