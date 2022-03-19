@@ -1,14 +1,12 @@
+// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
+
 // This file is automatically compiled by Webpack, along with any other files
 // present in this directory. You're encouraged to place your actual application logic in
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
-
-require("@rails/ujs").start()
-require("turbolinks").start()
-require("@rails/activestorage").start()
-require("channels")
-
-require("alpinejs")
+import "@hotwired/turbo-rails"
+import * as ActiveStorage from "@rails/activestorage"
+import AlpineJS from "alpinejs"
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -28,3 +26,6 @@ class Cociety {
 };
 
 window.cociety = new Cociety();
+
+ActiveStorage.start()
+AlpineJS.start

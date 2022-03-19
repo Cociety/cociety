@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+  }
+
+  .btn-center {
+    @apply justify-center;
+  }
+
+  .btn:hover {
+    @apply cursor-pointer;
+  }
+
+  .btn-primary {
+    @apply font-bold text-white bg-indigo-600 hover:bg-indigo-700;
+  }
+
+  .btn-secondary {
+    @apply text-indigo-700 bg-indigo-100 hover:bg-indigo-200;
+  }
+
+  form {
+    .field_with_errors {
+      & input, & label, & .field_error {
+        @apply border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500;
+      }
+    }
+  }
+
+}
+
+/* applied by rails when a string translataion is missing */
+.translation_missing {
+  @apply border-2 border-red-500;
+}
+.translation_missing::after {
+  content: 'Translation missing';
+  @apply bg-red-500 text-white;
+}

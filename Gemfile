@@ -13,10 +13,10 @@ gem 'puma', '~> 5.1.1'
 gem "cssbundling-rails"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
  gem "sprockets-rails"
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.x'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5.2.0'
+# import JavaScript modules directly from the browser https://github.com/rails/importmap-rails
+gem "importmap-rails"
+# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem "turbo-rails"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -40,8 +40,6 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.2'
   gem "rails_real_favicon", "~> 0.1.0"
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :test do

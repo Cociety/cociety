@@ -5,13 +5,10 @@ module.exports = {
     './app/assets/stylesheets/**/*.css',
     './app/javascript/**/*.js'
   ],
-    enabled: false,
-    options: {
-      safelist: [
-        'field_error',
-        'field_with_errors'
-      ],
-    },
+  safelist: [
+    'field_error',
+    'field_with_errors'
+  ],
   theme: {
     extend: {
       zIndex: {
