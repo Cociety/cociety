@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
   devise_for :customer, controllers: {
-    registrations: 'customers/registrations',
-    # sessions: 'customers/sessions'
+    registrations: 'customers/registrations'
   },
   skip: [:registrations]
 
-  devise_scope :customer do
+  as :customer do
     get "customer/sign_up", to: "customers/registrations#new", as: :new_customer_registration
     post "customer/sign_up", to: "customers/registrations#create", as: :customer_registration
   end

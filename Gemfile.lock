@@ -305,7 +305,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   cssbundling-rails
-  devise (~> 4.8.1)
+  devise
   hiredis (~> 0.6.3)
   image_processing (~> 1.12)
   importmap-rails

@@ -68,7 +68,7 @@ gem 'stripe-ruby-mock', require: 'stripe_mock', github: 'stripe-ruby-mock/stripe
 
 gem "money-rails", "~> 1.13"
 
-gem "devise", "~> 4.8.1"
+gem "devise"
 
 gem "name_of_person", "~> 1.1"
 
