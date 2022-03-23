@@ -16,6 +16,8 @@ class Customer < ApplicationRecord
   has_one_attached :avatar
   has_person_name
 
+  validates :first_name, presence: true, length: { minimum: 2 }
+
   def first_name=(f_name)
     super f_name&.strip
   end
