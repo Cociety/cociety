@@ -224,10 +224,6 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
-    rails_real_favicon (0.1.1)
-      json (>= 1.7, < 3)
-      rails
-      rubyzip (~> 2)
     railties (7.0.1)
       actionpack (= 7.0.1)
       activesupport (= 7.0.1)
@@ -316,7 +312,6 @@ DEPENDENCIES
   pg (~> 1.2)
   puma (~> 5.1.1)
   rails (~> 7.0.1)
-  rails_real_favicon (~> 0.1.0)
   recaptcha (~> 5.7)
   redis (~> 4.2)
   redis-namespace (~> 1.8)
