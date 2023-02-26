@@ -26,7 +26,7 @@ export class CocietyDatabase extends DatabaseCluster {
     const excludeCharacters = '/@" ';
 
     const secret = new Secret(scope, 'DatabaseSecret', {
-      secretName: 'DATABASE_JSON',
+      secretName: 'Cociety-DATABASE_JSON',
       description: 'connection details to cociety database',
       generateSecretString: {
         secretStringTemplate: JSON.stringify({

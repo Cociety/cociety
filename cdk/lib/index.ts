@@ -4,14 +4,13 @@ import { ARecord, HostedZone, HostedZoneAttributes, RecordTarget } from 'aws-cdk
 import { LoadBalancerTarget } from 'aws-cdk-lib/aws-route53-targets'
 import { CocietyVpc } from './vpc'
 import { CocietyDatabase } from './database'
-import { SecretArnWithKeyArn, CocietyCompute } from './compute'
+import { CocietyCompute } from './compute'
 import { CocietyLoadBalancer } from './load-balancer'
 import { ComputeFileStorage } from './file-storage'
 
 interface CocietyStackProps extends StackProps {
   hostedZoneAttributes: HostedZoneAttributes
   domainName: string
-  secretKeyBase: SecretArnWithKeyArn
 }
 
 /**
@@ -25,7 +24,7 @@ export class CocietyStack extends Stack {
 
     super(scope, id, {...defaultProps, ...props})
 
-    const { domainName, secretKeyBase, hostedZoneAttributes } = props
+    const { domainName, hostedZoneAttributes } = props
 
     const vpc = new CocietyVpc(this)
 
@@ -36,7 +35,6 @@ export class CocietyStack extends Stack {
     const hostedZone = HostedZone.fromHostedZoneAttributes(this, 'HostedZone', hostedZoneAttributes)
 
     const compute = new CocietyCompute(this, {
-      secretKeyBase,
       vpc,
       database,
       fileStorage: computeFileStorage

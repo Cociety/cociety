@@ -9,7 +9,7 @@ import { AnyPrincipal, Effect, PolicyStatement, Role, ServicePrincipal } from 'a
 import { CocietyDatabase } from './database'
 import { Duration, RemovalPolicy } from 'aws-cdk-lib'
 import { ComputeFileStorage } from './file-storage'
-import { SecretAttributes } from 'aws-cdk-lib/aws-secretsmanager'
+// import { SecretAttributes } from 'aws-cdk-lib/aws-secretsmanager'
 import { LogGroup } from 'aws-cdk-lib/aws-logs'
 import { DockerImageAsset } from 'aws-cdk-lib/aws-ecr-assets'
 import path = require('path')
@@ -21,15 +21,9 @@ import { Repository } from 'aws-cdk-lib/aws-ecr'
 
 // https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#config-secrets-yml
 
-export interface SecretArnWithKeyArn {
-  arn: string
-  encryptionKeyArn: string
-}
-
 interface ComputeProps {
   database: CocietyDatabase
   fileStorage: ComputeFileStorage
-  secretKeyBase: SecretArnWithKeyArn
   vpc: CocietyVpc
 }
 /**
@@ -41,7 +35,7 @@ export class CocietyCompute extends FargateService {
   readonly logGroup: LogGroup
 
   constructor(scope: Construct, props: ComputeProps) {
-    const { vpc, database, fileStorage, secretKeyBase } = props
+    const { vpc, database, fileStorage } = props
     const port = 8080
 
     const repository = new Repository(scope, 'Repository', {
@@ -82,13 +76,13 @@ export class CocietyCompute extends FargateService {
     const secrets: { [key: string]: secretsManager.ISecret } = {}
 
     secrets.ACTIVE_RECORD_PRIMARY_KEY = new secretsManager.Secret(scope, 'Compute-ActiveRecordEncryption-PrimaryKey', {
-      secretName: 'ACTIVE_RECORD_PRIMARY_KEY',
+      secretName: 'Cociety-ACTIVE_RECORD_PRIMARY_KEY',
       generateSecretString: {
         passwordLength: 32,
         excludePunctuation: true
       },
       encryptionKey: new Key(scope, 'Compute-ActiveRecordEncryption-PrimaryKey-CredentialsKey', {
-        alias: 'ACTIVE_RECORD_PRIMARY_KEY',
+        alias: 'Cociety-ACTIVE_RECORD_PRIMARY_KEY',
         enableKeyRotation: true,
         removalPolicy: RemovalPolicy.DESTROY
       })
@@ -98,13 +92,13 @@ export class CocietyCompute extends FargateService {
       scope,
       'Compute-ActiveRecordEncryption-DeterministicKey',
       {
-        secretName: 'ACTIVE_RECORD_DETERMINISTIC_KEY',
+        secretName: 'Cociety-ACTIVE_RECORD_DETERMINISTIC_KEY',
         generateSecretString: {
           passwordLength: 32,
           excludePunctuation: true
         },
         encryptionKey: new Key(scope, 'Compute-ActiveRecordEncryption-DeterministicKey-CredentialsKey', {
-          alias: 'ACTIVE_RECORD_DETERMINISTIC_KEY',
+          alias: 'Cociety-ACTIVE_RECORD_DETERMINISTIC_KEY',
           enableKeyRotation: true,
           removalPolicy: RemovalPolicy.DESTROY
         })
@@ -115,13 +109,13 @@ export class CocietyCompute extends FargateService {
       scope,
       'Compute-ActiveRecordEncryption-KeyDerivationSalt',
       {
-        secretName: 'ACTIVE_RECORD_KEY_DERIVATION_SALT',
+        secretName: 'Cociety-ACTIVE_RECORD_KEY_DERIVATION_SALT',
         generateSecretString: {
           passwordLength: 32,
           excludePunctuation: true
         },
         encryptionKey: new Key(scope, 'Compute-ActiveRecordEncryption-KeyDerivationSalt-CredentialsKey', {
-          alias: 'ACTIVE_RECORD_KEY_DERIVATION_SALT',
+          alias: 'Cociety-ACTIVE_RECORD_KEY_DERIVATION_SALT',
           enableKeyRotation: true,
           removalPolicy: RemovalPolicy.DESTROY
         })
@@ -134,26 +128,19 @@ export class CocietyCompute extends FargateService {
       assumedBy: new ServicePrincipal('ecs-tasks.amazonaws.com')
     })
 
-    // allow fargate to get and decrypt rails secret key base
-    let secretAttributes: SecretAttributes
-    if (secretKeyBase.encryptionKeyArn) {
-      const secretKeyBaseEncryptionKey = Key.fromKeyArn(
-        scope,
-        'RAILS_SECRET_KEY_BASE_ENCRYPTION_KEY',
-        secretKeyBase.encryptionKeyArn
-      )
-      secretKeyBaseEncryptionKey.grantDecrypt(executionRole)
-      secretAttributes = {
-        secretCompleteArn: secretKeyBase.arn,
-        encryptionKey: secretKeyBaseEncryptionKey
-      }
-    } else {
-      secretAttributes = {
-        secretCompleteArn: secretKeyBase.arn
-      }
-    }
-
-    secrets.SECRET_KEY_BASE = secretsManager.Secret.fromSecretAttributes(scope, 'SECRET_KEY_BASE', secretAttributes)
+    secrets.SECRET_KEY_BASE = new secretsManager.Secret(scope, 'Compute-SECRET_KEY_BASE', {
+      secretName: 'Cociety-SECRET_KEY_BASE',
+      generateSecretString: {
+        passwordLength: 128,
+        excludePunctuation: true
+      },
+      removalPolicy: RemovalPolicy.RETAIN,
+      encryptionKey: new Key(scope, 'Compute-SECRET_KEY_BASE-Key', {
+        alias: 'Cociety-SECRET_KEY_BASE-Key',
+        enableKeyRotation: true,
+        removalPolicy: RemovalPolicy.RETAIN
+      })
+    })
 
     // allow fargate to get and decrypt all secrets
     const ecsSecrets: { [key: string]: Secret } = {}

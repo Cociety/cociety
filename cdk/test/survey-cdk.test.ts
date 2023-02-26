@@ -8,10 +8,6 @@ const stack = new CocietyStack(app, 'TestCocietyStack', {
   hostedZoneAttributes: {
     hostedZoneId: 'hostedZoneId',
     zoneName: 'zoneName'
-  },
-  secretKeyBase: {
-    arn: 'secretKeyBaseArn',
-    encryptionKeyArn: 'encryptionKeyArn'
   }
 })
 const template = Template.fromStack(stack)
