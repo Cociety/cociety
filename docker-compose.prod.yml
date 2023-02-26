@@ -1,0 +1,13 @@
+services:
+  web:
+    build:
+      context: .
+      args:
+        BUNDLE_WITHOUT: test development
+        FOREMAN_FILE: Procfile
+    image: cociety/web:latest
+    ports:
+      - "8080:8080"
+    environment:
+      RAILS_ENV: production
+    restart: always

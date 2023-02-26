@@ -24,8 +24,12 @@
 !/tmp/pids/.keep
 
 # Ignore uploaded files in development.
+# Ignore uploaded files in development.
 /storage/*
 !/storage/.keep
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
 
 /public/assets
 .byebug_history
@@ -44,3 +48,22 @@ yarn-debug.log*
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Generated cloud formation template for local debugging
+/cdk/stack.yml
+/cdk/**/*.js
+!/cdk/jest.config.js
+/cdk/**/*.d.ts
+# CDK asset staging directory
+/cdk/.cdk.staging
+/cdk/cdk.out
+
+
+node_modules
+/node_modules
+.byebug_history

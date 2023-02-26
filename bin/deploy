@@ -1,0 +1,48 @@
+#!/bin/bash
+SCRIPT_DIR=`dirname -- "${BASH_SOURCE[0]}"`
+AWS_ACCOUNT_ID=`aws sts get-caller-identity --query "Account" --output text`
+AWS_REGION=${AWS_REGION:-$(aws configure get region)}
+BUILD_TARGET='rails'
+while getopts s:t: options; do
+  case $options in
+    t) BUILD_TARGET=$OPTARG;;
+    s) CDK_STACK=$OPTARG;;
+    *) exit 1;;
+  esac
+done
+echo "Deploying $BUILD_TARGET with options AWS_PROFILE=$AWS_PROFILE AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID AWS_REGION=$AWS_REGION"
+
+case $BUILD_TARGET in
+  cdk)
+    if [ "$CDK_STACK" = "" ]; then
+      >&2 echo "specify which cdk stack to deploy with -s Ex '-s CocietyStack-justin'"
+      exit 1
+    fi
+    echo "CDK_STACK=$CDK_STACK"
+    echo "Authenticating to Elastic Container Service to get Amazon Linux"
+    # auth to download AL2023 base image
+    # https://docs.aws.amazon.com/linux/al2022/ug/install-docker.html
+    aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
+    (cd "$SCRIPT_DIR/../cdk" && cdk bootstrap $AWS_ACCOUNT_ID/$AWS_REGION && cdk deploy $CDK_STACK)
+    ;;
+  rails)
+    REPO_NAME="insoles-compute"
+    # https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html
+    ECR_DOMAIN=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+    aws ecr get-login-password | docker login --username AWS --password-stdin $ECR_DOMAIN
+
+    IMAGE_NAME=$ECR_DOMAIN/$REPO_NAME
+    docker tag insoles/web $IMAGE_NAME
+    docker push $IMAGE_NAME
+
+    # Deploys the latest published image to Fargate
+    CLUSTER_ARN=`aws ecs list-clusters --query "clusterArns[?contains(@, '-ComputeCluster')]|[0]" --output text`
+    SERVICE_ARN=`aws ecs list-services --cluster $CLUSTER_ARN --query "serviceArns[?contains(@, '-ComputeService')]|[0]" --output text`
+
+    aws ecs update-service --force-new-deployment --service $SERVICE_ARN --clust $CLUSTER_ARN
+    ;;
+  *)
+    >&2 echo "Unknown option ${BUILD_TARGET}"
+    exit 1
+    ;;
+esac

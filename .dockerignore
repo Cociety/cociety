@@ -1,0 +1,13 @@
+.byebug_history
+.git
+.vscode
+cdk
+config/master.key
+db/*.sqlite3
+log/*
+node_modules
+storage/*
+tmp/*
+lambdas
+README.md
+*.md

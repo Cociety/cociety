@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+echo "Running as user `whoami`"
+
+echo "RAILS_ENV=$RAILS_ENV"
+echo "BUNDLE_WITHOUT=$BUNDLE_WITHOUT"
+
+echo "Creating database"
+./bin/rails db:create
+
+echo "Migrating database"
+./bin/rails db:migrate
+
+echo "Starting foreman with ${FOREMAN_FILE}"
+foreman start -f $FOREMAN_FILE

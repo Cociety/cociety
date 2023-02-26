@@ -1,0 +1,30 @@
+{
+  "name": "cociety-cdk",
+  "version": "0.1.0",
+  "bin": {
+    "cociety-cdk": "bin/cociety-cdk.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.5.2",
+    "@types/node": "^17.0.45",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "aws-cdk": "^2.66.1",
+    "aws-cdk-lib": "2.20.0",
+    "cdk-ecr-deployment": "^2.5.6",
+    "cdk-monitoring-constructs": "^1.30.11",
+    "constructs": "^10.1.261",
+    "source-map-support": "^0.5.21",
+    "yaml": "^2.2.1"
+  }
+}

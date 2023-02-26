@@ -1,0 +1,47 @@
+#!/bin/bash
+SCRIPT_DIR=`dirname -- "${BASH_SOURCE[0]}"`
+echo $SCRIPT_DIR
+BUILD_TARGET='rails'
+while getopts p:r:s:t: options; do
+  case $options in
+    t) BUILD_TARGET=$OPTARG;;
+    s) CDK_STACK=$OPTARG;;
+    *) exit 1;;
+  esac
+done
+echo "Building $BUILD_TARGET"
+
+case $BUILD_TARGET in
+  cdk)
+    if [[ -z $CDK_STACK ]]; then
+      >&2 echo "specify which cdk stack to deploy with -s Ex '-s CocietyStack-justin'"
+      exit 1
+    fi
+    echo "AWS_PROFILE=$AWS_PROFILE AWS_REGION=$AWS_REGION CDK_STACK=$CDK_STACK"
+    (cd "$SCRIPT_DIR/../cdk" && npm install && npm run build && cdk bootstrap && cdk synth $CDK_STACK > stack.yml)
+    echo "Built to $PWD/stack.yml"
+    ;;
+  rails)
+    echo "AWS_PROFILE=$AWS_PROFILE AWS_REGION=$AWS_REGION"
+    echo "Authenticating to Elastic Container Service to get Amazon Linux"
+    # auth to download AL2023 base image
+    # https://docs.aws.amazon.com/linux/al2022/ug/install-docker.html
+    aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
+
+    RUBY_VERSION=`cat .ruby-version`
+    if [[ -z $RUBY_VERSION ]]; then
+      >&2 echo "failed to load ruby version from .ruby-version file"
+    fi
+    echo "Building with ruby version ${RUBY_VERSION}"
+    # https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html
+    docker compose \
+      --file docker-compose.yml \
+      --file docker-compose.prod.yml \
+      build \
+      --build-arg RUBY_VERSION=${RUBY_VERSION} \
+    ;;
+  *)
+    >&2 echo "Unknown option ${BUILD_TARGET}"
+    exit 1
+    ;;
+esac
